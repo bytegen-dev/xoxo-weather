@@ -123,7 +123,7 @@ export default function App(){
     
     return(
         <div className={uiSettings.showMenu? "container show-menu" : "container"}>
-            <Preloader className = {uiSettings.showPreloader ? "show preloader type-big" : "preloader type-big"}/>
+            <Preloader className = {uiSettings.showPreloader ? "show preloader type-big" : "preloader type-big yeah"}/>
             
             <Menu className = "menu" onClick = {hamburgerClicked} onClickX = {hamburgerClickedX}/>
 
