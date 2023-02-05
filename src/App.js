@@ -147,9 +147,10 @@ export default function App(){
 
     React.useEffect(
         function(){
-            function gettingPageInfo(){
-                const pageInfo = window.location.search
-                const gotopage = new URLSearchParams(pageInfo)
+            async function gettingPageInfo(){
+                const pageInfo = await window.location.search
+                const gotopage = await new URLSearchParams(pageInfo)
+                gotopage.get("container")
 
                 if (gotopage.get("container") === "login"){
                     console.log("go to login")
