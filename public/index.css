@@ -679,14 +679,14 @@ body{
         flex-direction: column;
         padding: 0 30px;
         opacity: 0;
-        transform: translateX(100%);
+        /* transform: translateX(100%); */
         visibility: hidden;
         transition: all 0.25s ease;
         /* display: none; */
     }
 
     .show.weather{
-        transform: translateX(0);
+        /* transform: translateX(0); */
         opacity: 1;
         visibility: visible;
     }
