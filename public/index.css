@@ -46,7 +46,7 @@ body{
     }
 
     .preloader{
-        background-color: rgb(255, 255, 255);
+        background-color: rgba(255, 255, 255, 0.85);
         display: flex;
         z-index: 100;
         /* backdrop-filter: blur(5px); */
@@ -555,15 +555,15 @@ body{
     /* justify-content: flex-start; */
     /* align-items: flex-start; */
     /* display: none; */
-    /* opacity: 0; */
-    transform: translateX(-100%);
+    opacity: 0;
+    /* transform: translateX(-100%); */
     visibility: hidden;
-    transition: all 0.5s ease;
+    transition: all 0.25s ease;
 }
 
 .show.login{
-    transform: translateX(0);
-    /* opacity: 1; */
+    /* transform: translateX(0); */
+    opacity: 1;
     visibility: visible;
 }
 
@@ -671,16 +671,16 @@ body{
         display: flex;
         flex-direction: column;
         padding: 0 30px;
-        /* opacity: 0; */
+        opacity: 0;
         transform: translateX(100%);
         visibility: hidden;
-        transition: all 0.5s ease;
+        transition: all 0.25s ease;
         /* display: none; */
     }
 
     .show.weather{
         transform: translateX(0);
-        /* opacity: 1; */
+        opacity: 1;
         visibility: visible;
     }
 
