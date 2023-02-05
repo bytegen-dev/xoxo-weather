@@ -9,6 +9,7 @@ import Weather from "./Weather";
 import Menu from "./Menu";
 import Backdrop from "./Backdrop";
 import Search from "./Search";
+import queryString from "query-string";
 
 export default function App(){
     const [uiSettings, setUiSettings] = React.useState({
@@ -147,12 +148,14 @@ export default function App(){
 
     React.useEffect(
         function(){
-            async function gettingPageInfo(){
-                const pageInfo = await window.location.search
-                const gotopage = await new URLSearchParams(pageInfo)
+            function gettingPageInfo(){
+                const pageInfo = window.location.search
+                const gotopage = new URLSearchParams(pageInfo)
                 // gotopage.get("container")
+                const query = queryString.parse(window.location.search)
+                const container = query.container
 
-                if (gotopage.get("container") === "login"){
+                if (container === "login"){
                     console.log("go to login")
                     setUiSettings(
                         function(prevState){
@@ -162,7 +165,7 @@ export default function App(){
                         }
                     )
                     
-                } else if (gotopage.get("container") === "signup"){
+                } else if (container === "signup"){
                     console.log("signup")
                     setUiSettings(
                         function(prevState){
@@ -171,7 +174,7 @@ export default function App(){
                             )
                         }
                     )
-                } else if (gotopage.get("container") === "weather"){
+                } else if (container === "weather"){
                     console.log("weather")
                     setUiSettings(
                         function(prevState){
@@ -180,7 +183,7 @@ export default function App(){
                             )
                         }
                     )
-                } else if (gotopage.get("container") === "search"){
+                } else if (container === "search"){
                     console.log("weather")
                     setUiSettings(
                         function(prevState){
