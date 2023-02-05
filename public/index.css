@@ -223,7 +223,7 @@ body{
 }
 
 .link.search input:hover, .link.search input:focus{
-    border: 3px solid rgba(58, 46, 66, 0.47);
+    /* border: 3px solid rgba(58, 46, 66, 0.47); */
     /* border: none; */
     outline: none;
 }
