@@ -463,7 +463,7 @@ body{
     /* border-left: 2px solid rgba(40, 35, 44, 0.595); */
 
 
-    /* visibility: hidden; */
+    visibility: hidden;
 }
 
 .show.signup{
@@ -1314,3 +1314,22 @@ body{
 
 /* search ends here */
 
+.gettingstarted{
+    z-index: 8;
+}
+
+.signup{
+    z-index: 7;
+}
+
+.login{
+    z-index: 6;
+}
+
+.weather{
+    z-index: 5;
+}
+
+.searchpage{
+    z-index: 8;
+}

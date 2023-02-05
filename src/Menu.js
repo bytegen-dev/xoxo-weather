@@ -7,13 +7,14 @@ export default function Menu(props){
 
     function clearData(){
         setReset(true)
-        setTimeout(
-            function(){
-                // location.reload()
-                console.log("failed to clear data")
-                setReset(false)
-            }, 2000
-        )
+        props.onClear()
+        // setTimeout(
+        //     function(){
+        //         // location.reload()
+        //         console.log("failed to clear data")
+        //         setReset(false)
+        //     }, 2000
+        // )
     }
 
     return (

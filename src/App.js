@@ -122,6 +122,16 @@ export default function App(){
         console.log("user searched")
     }
 
+    async function clearDataAll(){
+        await localStorage.removeItem("visitedBefore")
+
+        setTimeout(
+            function(){
+                window.location.reload()
+            }, 1000
+        )
+    }
+
     React.useEffect(
         function(){
             setUiSettings(
@@ -214,24 +224,31 @@ export default function App(){
         
         React.useEffect(
             function(){
-            const hasLoggedIn = localStorage.getItem("visitedBefore")
-            if (hasLoggedIn){
-                setBrowserSet(
-                    {isLoggedIn : true}
-                    )
-                } else {
+                const hasLoggedIn = localStorage.getItem("visitedBefore")
+                if (hasLoggedIn){
+                    setBrowserSet(
+                        {isLoggedIn : true}
+                        )
+                        setUiSettings(
+                            function(prevState){
+                                return (
+                                    {...prevState, count: prevState.count + 1, showWeather: false, showSignUp : false, showLogin: true, showGetStarted: false}
+                                )
+                            }
+                        )
+                    } else {
                 localStorage.setItem("visitedBefore", true)
+                setUiSettings(
+                    function(prevState){
+                        return (
+                            {...prevState, count: prevState.count + 1, showWeather: false, showSignUp : false, showLogin: false, showGetStarted: true}
+                        )
+                    }
+                )
             }
             
             if (hasLoggedIn){
                 console.log("weather")
-                setUiSettings(
-                    function(prevState){
-                        return (
-                            {...prevState, count: prevState.count + 1, showWeather: false, showSignUp : false, showLogin: true, showGetStarted: false}
-                        )
-                    }
-                )
             }
         }, []
     )
@@ -242,7 +259,7 @@ export default function App(){
         <div className={uiSettings.showMenu? "container show-menu" : "container"}>
             <Preloader className = {uiSettings.showPreloader ? "show preloader type-big" : "preloader type-big yeah"}/>
             
-            <Menu className = "menu" onClick = {hamburgerClicked} onClickX = {hamburgerClickedX}/>
+            <Menu className = "menu" onClick = {hamburgerClicked} onClickX = {hamburgerClickedX} onClear = {clearDataAll}/>
 
             <GettingStarted className = {uiSettings.showGetStarted ? "show gettingstarted type-big" : "gettingstarted type-big"} onClick = {hamburgerClicked} onNext = {goToSignUp} />
             
