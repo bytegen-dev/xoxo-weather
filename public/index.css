@@ -987,19 +987,19 @@ body{
 /* search starts here */
 
 .searchpage{
-    transform: translateX(100%);
-    /* opacity: 0; */
+    /* transform: translateX(100%); */
+    opacity: 0;
     visibility: hidden;
     transition: all 0.5s ease;
-    border-left: 2px solid rgba(40, 35, 44, 0.366);
+    /* border-left: 2px solid rgba(40, 35, 44, 0.366); */
     /* width: ; */
     /* display: none; */
     flex-direction: column;
 }
 
 .show.searchpage{
-    border-left: 2px solid transparent;
-    transform: translateX(0);
+    /* border-left: 2px solid transparent; */
+    /* transform: translateX(0); */
     opacity: 1;
     visibility: visible;
 }
