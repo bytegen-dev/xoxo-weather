@@ -150,7 +150,7 @@ export default function App(){
             async function gettingPageInfo(){
                 const pageInfo = await window.location.search
                 const gotopage = await new URLSearchParams(pageInfo)
-                gotopage.get("container")
+                // gotopage.get("container")
 
                 if (gotopage.get("container") === "login"){
                     console.log("go to login")
