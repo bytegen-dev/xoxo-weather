@@ -59,6 +59,13 @@ body{
         opacity: 1;
         visibility: visible;
     }
+
+    .priority.preloader{
+        background-color: #fff;
+        opacity: 1;
+        visibility: visible;
+        transition: all 0.5s ease;
+    }
 /* preloader ends here */
 
 /* menu starts here */
