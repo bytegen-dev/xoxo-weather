@@ -23,6 +23,10 @@ export default function App(){
         count: 0
     })
 
+    const [browserSet, setBrowserSet] = React.useState({
+        isLoggedIn : false
+    })
+
     function hamburgerClicked(){
         console.log("hamburger-clicked")
         setUiSettings(
@@ -146,67 +150,90 @@ export default function App(){
         }, [uiSettings.count]
     )
 
+    console.log(browserSet)
     React.useEffect(
         function(){
-            function gettingPageInfo(){
-                const pageInfo = window.location.search
-                const gotopage = new URLSearchParams(pageInfo)
-                // gotopage.get("container")
-                const query = queryString.parse(window.location.search)
-                const container = query.container
+            // const pageInfo = window.location.search
+            // const gotopage = new URLSearchParams(pageInfo)
+            // gotopage.get("container")
+            const query = queryString.parse(window.location.search)
+            const container = query.container
 
-                if (container === "login"){
-                    console.log("go to login")
-                    setUiSettings(
-                        function(prevState){
-                            return (
-                                {...prevState, count: prevState.count + 1, showLogin: true, showSignUp: false, showGetStarted: false}
-                            )
-                        }
-                    )
-                    
-                } else if (container === "signup"){
-                    console.log("signup")
-                    setUiSettings(
-                        function(prevState){
-                            return (
-                                {...prevState, count: prevState.count + 1, showSignUp: true, showLogin: false, showGetStarted: false}
-                            )
-                        }
-                    )
-                } else if (container === "weather"){
-                    console.log("weather")
-                    setUiSettings(
-                        function(prevState){
-                            return (
-                                {...prevState, count: prevState.count + 1, showWeather: true, showSignUp : false, showLogin: false, showGetStarted: false}
-                            )
-                        }
-                    )
-                } else if (container === "search"){
-                    console.log("weather")
-                    setUiSettings(
-                        function(prevState){
-                            return (
-                                {...prevState, count: prevState.count + 1, showWeather: true, showSearch:true, showSignUp : false, showLogin: false, showGetStarted: false}
-                            )
-                        }
-                    )
-                } else{
-                    console.log("default")
-                    setUiSettings(
-                        function(prevState){
-                            return (
-                                {...prevState, count: prevState.count + 1, showWeather: false, showSignUp : false, showLogin: false, showGetStarted: true}
-                            )
-                        }
-                    )
-                }
+            if (container === "login"){
+                console.log("go to login")
+                setUiSettings(
+                    function(prevState){
+                        return (
+                            {...prevState, count: prevState.count + 1, showLogin: true, showSignUp: false, showGetStarted: false}
+                        )
+                    }
+                )
+                
+            } else if (container === "signup"){
+                console.log("signup")
+                setUiSettings(
+                    function(prevState){
+                        return (
+                            {...prevState, count: prevState.count + 1, showSignUp: true, showLogin: false, showGetStarted: false}
+                        )
+                    }
+                )
+            } else if (container === "weather"){
+                console.log("weather")
+                setUiSettings(
+                    function(prevState){
+                        return (
+                            {...prevState, count: prevState.count + 1, showWeather: true, showSignUp : false, showLogin: false, showGetStarted: false}
+                        )
+                    }
+                )
+            } else if (container === "search"){
+                console.log("search")
+                setUiSettings(
+                    function(prevState){
+                        return (
+                            {...prevState, count: prevState.count + 1, showWeather: true, showSearch:true, showSignUp : false, showLogin: false, showGetStarted: false}
+                        )
+                    }
+                )
+            } else{
+                console.log("default")
+                setUiSettings(
+                    function(prevState){
+                        return (
+                            {...prevState, count: prevState.count + 1, showWeather: false, showSignUp : false, showLogin: false, showGetStarted: true}
+                        )
+                    }
+                )
             }
 
-            window.addEventListener("load", gettingPageInfo)
+            // window.addEventListener("loadstart", gettingPageInfo)
         }, []
-
+        
+        )
+        
+        React.useEffect(
+            function(){
+            const hasLoggedIn = localStorage.getItem("visitedBefore")
+            if (hasLoggedIn){
+                setBrowserSet(
+                    {isLoggedIn : true}
+                    )
+                } else {
+                localStorage.setItem("visitedBefore", true)
+            }
+            
+            if (hasLoggedIn){
+                console.log("weather")
+                setUiSettings(
+                    function(prevState){
+                        return (
+                            {...prevState, count: prevState.count + 1, showWeather: false, showSignUp : false, showLogin: true, showGetStarted: false}
+                        )
+                    }
+                )
+            }
+        }, []
     )
 
     
