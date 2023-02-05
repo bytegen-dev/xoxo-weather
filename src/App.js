@@ -8,6 +8,7 @@ import Login from "./Login";
 import Weather from "./Weather";
 import Menu from "./Menu";
 import Backdrop from "./Backdrop";
+import Search from "./Search";
 
 export default function App(){
     const [uiSettings, setUiSettings] = React.useState({
@@ -17,6 +18,7 @@ export default function App(){
         showLogin : false,
         showWeather : false,
         showPreloader : false,
+        showSearch : false,
         count: 0
     })
 
@@ -35,7 +37,7 @@ export default function App(){
         setUiSettings(
             function(prevState){
                 return (
-                    {...prevState, count: prevState.count + 1, showSignUp: true, showGetStarted: true}
+                    {...prevState, showSignUp: true, showGetStarted: false}
                 )
             }
         )
@@ -51,7 +53,7 @@ export default function App(){
             }
         )
     }
-
+    
     function goToWeather(event){
         event.preventDefault()
         setUiSettings(
@@ -80,7 +82,6 @@ export default function App(){
                 return (
                     {
                         ...prevState,
-                        count: prevState.count + 1,
                         showLogin : false,
                         showSignUp : false,
                         showWeather : false,
@@ -89,6 +90,31 @@ export default function App(){
                 )
             }
         )
+    }
+
+    function gotoSearch(){
+        setUiSettings(
+            function(prevState){
+                return (
+                    {...prevState, showSearch : true}
+                )
+            }
+        )
+    }
+
+    function returntoWeather(){
+        setUiSettings(
+            function(prevState){
+                return (
+                    {...prevState, showSearch : false}
+                )
+            }
+        )
+    }
+
+    function searchforCity(event){
+        event.preventDefault()
+        console.log("user searched")
     }
 
     React.useEffect(
@@ -111,12 +137,72 @@ export default function App(){
                                 {
                                     ...prevState, showPreloader: false
                                 }
+                                )
+                            }
+                            )
+                        }, 1000
+            )
+        }, [uiSettings.count]
+    )
+
+    React.useEffect(
+        function(){
+            function gettingPageInfo(){
+                const pageInfo = window.location.search
+                const gotopage = new URLSearchParams(pageInfo)
+
+                if (gotopage.get("container") === "login"){
+                    console.log("go to login")
+                    setUiSettings(
+                        function(prevState){
+                            return (
+                                {...prevState, count: prevState.count + 1, showLogin: true, showSignUp: false, showGetStarted: false}
                             )
                         }
                     )
-                }, 1000
-            )
-        }, [uiSettings.count]
+                    
+                } else if (gotopage.get("container") === "signup"){
+                    console.log("signup")
+                    setUiSettings(
+                        function(prevState){
+                            return (
+                                {...prevState, count: prevState.count + 1, showSignUp: true, showLogin: false, showGetStarted: false}
+                            )
+                        }
+                    )
+                } else if (gotopage.get("container") === "weather"){
+                    console.log("weather")
+                    setUiSettings(
+                        function(prevState){
+                            return (
+                                {...prevState, count: prevState.count + 1, showWeather: true, showSignUp : false, showLogin: false, showGetStarted: false}
+                            )
+                        }
+                    )
+                } else if (gotopage.get("container") === "search"){
+                    console.log("weather")
+                    setUiSettings(
+                        function(prevState){
+                            return (
+                                {...prevState, count: prevState.count + 1, showWeather: true, showSearch:true, showSignUp : false, showLogin: false, showGetStarted: false}
+                            )
+                        }
+                    )
+                } else{
+                    console.log("default")
+                    setUiSettings(
+                        function(prevState){
+                            return (
+                                {...prevState, count: prevState.count + 1, showWeather: false, showSignUp : false, showLogin: false, showGetStarted: true}
+                            )
+                        }
+                    )
+                }
+            }
+
+            window.addEventListener("load", gettingPageInfo)
+        }, []
+
     )
 
     
@@ -137,7 +223,9 @@ export default function App(){
             
             <Login  className = {uiSettings.showLogin ? "show login type-big" : "login type-big"} onClick = {hamburgerClicked} onNext = {goToWeather}/>
             
-            <Weather  className = {uiSettings.showWeather ? "show weather type-big" : "weather type-big"} onClick = {hamburgerClicked}/>
+            <Weather  className = {uiSettings.showWeather ? "show weather type-big" : "weather type-big"} onClick = {hamburgerClicked} onNext = {gotoSearch}/>
+
+            <Search className = {uiSettings.showSearch ? "show searchpage type-big": "searchpage type-big"} onPrev = {returntoWeather} onSubmit = {searchforCity}/>
 
             <Backdrop onClick = {hamburgerClickedX} />
         </div>

@@ -35,9 +35,9 @@ export default function Weather(props){
                     about Lagos
                 </div>
             </div>
-            <div className="searchforcity">
+            <div className="searchforcity" onClick={props.onNext}>
                 <div className="ripple">
-                <i className="fa fa-globe" />
+                <i className="fa fa-search" />
 
                 </div>
             </div>
