@@ -10,8 +10,10 @@ import Menu from "./Menu";
 import Backdrop from "./Backdrop";
 import Search from "./Search";
 import queryString from "query-string";
+import Settings from "./Settings";
 
 export default function App(){
+    // console.clear()
     const [uiSettings, setUiSettings] = React.useState({
         showMenu : false,
         showGetStarted : true,
@@ -26,6 +28,7 @@ export default function App(){
     const [browserSet, setBrowserSet] = React.useState({
         isLoggedIn : false
     })
+    
 
     function hamburgerClicked(){
         console.log("hamburger-clicked")
@@ -131,6 +134,63 @@ export default function App(){
             }, 1000
         )
     }
+
+    const [uxSettings, setUxSettings] = React.useState({
+        darkMode: false,
+        visible: false,
+        dataSaving: false,
+        premiumAcct:false,
+        saveText: "Save"
+    })
+
+    function contextMenu(event){
+        event.preventDefault()
+        setUxSettings(
+            function(prevState){
+                return(
+                    {...prevState, visible : true, saveText : "Save"}
+                )
+            }
+        )
+    }
+
+    function contextMenuX(){
+        // event.preventDefault()
+        setUxSettings(
+            function(prevState){
+                return(
+                    {...prevState, visible : false}
+                )
+            }
+        )
+    }
+
+    function contextMenuSubmit(event){
+        event.preventDefault()
+        setUxSettings(
+                function(prevState){
+                    return(
+                        {...prevState, saveText: "Saving"}
+                    )
+                }
+        )
+
+        setTimeout(
+            contextMenuX, 1000
+        )
+
+        // setUxSettings(
+        //     function(prevState){
+        //         return(
+        //             {...prevState, visible : false}
+        //         )
+        //     }
+        // )
+    }
+
+    window.addEventListener(
+        "contextmenu", contextMenu
+    )
 
     React.useEffect(
         function(){
@@ -259,7 +319,7 @@ export default function App(){
         <div className={uiSettings.showMenu? "container show-menu" : "container"}>
             <Preloader className = {uiSettings.showPreloader ? "show preloader type-big" : "preloader type-big yeah"}/>
             
-            <Menu className = "menu" onClick = {hamburgerClicked} onClickX = {hamburgerClickedX} onClear = {clearDataAll}/>
+            <Menu className = "menu" onClick = {hamburgerClicked} onClickX = {hamburgerClickedX} onClear = {clearDataAll} onNext = {contextMenu}/>
 
             <GettingStarted className = {uiSettings.showGetStarted ? "show gettingstarted type-big" : "gettingstarted type-big"} onClick = {hamburgerClicked} onNext = {goToSignUp} />
             
@@ -274,6 +334,8 @@ export default function App(){
             <Weather  className = {uiSettings.showWeather ? "show weather type-big" : "weather type-big"} onClick = {hamburgerClicked} onNext = {gotoSearch}/>
 
             <Search className = {uiSettings.showSearch ? "show searchpage type-big": "searchpage type-big"} onPrev = {returntoWeather} onSubmit = {searchforCity}/>
+
+            <Settings className = {uxSettings.visible ? "show settings type-big" : "settings type-big"} onClick = {contextMenuX} saveText = {uxSettings.saveText} onSubmit = {contextMenuSubmit} onClear = {clearDataAll}/>
 
             <Backdrop onClick = {hamburgerClickedX} />
         </div>
