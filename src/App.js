@@ -120,19 +120,144 @@ export default function App(){
         )
     }
 
+    const [defaultCityData, setDefaultCityData] = React.useState({
+        // cityAvailable: true,
+        // cityDefault: true,
+        cityName : "Lagos",
+        cityTemp : "45",
+        cityWindSpeed : "3.6",
+        cityLongitude : "1200",
+        cityLatitude : "110",
+        cityImg : "",
+        cityHumidity: "66",
+        cityCondition: "sunny"
+    })
+
+    console.log(defaultCityData)
+
+    React.useEffect(
+        function(){
+            setDefaultCityData(
+                (prevState)=>{
+                    return ({...prevState})
+                }
+            )
+        }, []
+    )
+
+    const [weatherData, setWeatherData] = React.useState(
+        {
+            cityAvailable: true,
+            cityDefault: true,
+            cityName : "Lagos",
+            cityTemp : "45",
+            cityWindSpeed : "3.6",
+            cityLongitude : "1200",
+            cityLatitude : "110",
+            cityImg : "",
+            cityHumidity: "66",
+            cityCondition: "sunny"
+        }
+        )
+        
+    const [searchWeatherData, setSearchWeatherData] = React.useState(
+        {
+            cityAvailable: true,
+            cityDefault: false,
+            cityName : "",
+            cityTemp : "Nan",
+            cityWindSpeed : "Nan",
+            cityLongitude : "Nan",
+            cityLatitude : "Nan",
+            cityImg : "Nan",
+            visible: false,
+            cityHumidity: "Nan",
+            cityCondition: "Nan"
+        }
+    )
+
+    function setDefault(){
+        
+        if(searchWeatherData.cityDefault === false){
+            localStorage.setItem("defaultCity", weatherData.cityName)
+            setWeatherData(searchWeatherData)
+            setSearchWeatherData(
+                function(prevState){
+                    return(
+                        {
+                            ...prevState,
+                            cityDefault: true
+                        }
+                    )
+                }
+            )
+        } else {
+            localStorage.setItem("defaultCity", defaultCityData.cityName)
+            setSearchWeatherData(
+                function(prevState){
+                    return(
+                        {
+                            ...prevState,
+                            cityDefault: false
+                        }
+                    )
+                }
+            )
+        }
+
+
+    }
+
+    function searchSaving(event){
+        setSearchWeatherData(
+            function(prevState){
+                return(
+                    {
+                        ...prevState,
+                        cityName: event.target.value
+                    }
+                )
+            }
+        )
+
+        console.log(searchWeatherData.cityName)
+    }
+
     function searchforCity(event){
         event.preventDefault()
         console.log("user searched")
+        setSearchWeatherData(
+            function(prevState){
+                return (
+                    {
+                        ...prevState,
+                        cityAvailable: true,
+                        cityTemp: "33.4",
+                        cityHumidity: "66",
+                        cityWindSpeed: "2.4",
+                        cityLongitude: "140",
+                        cityLatitude: "2400",
+                        cityImg: "",
+                        cityDefault: false,
+                        cityCondition: "sunny",
+                        visible: true
+                    }
+                )
+            }
+        )
     }
+
 
     async function clearDataAll(){
         await localStorage.removeItem("visitedBefore")
+        // window.location.search
+        // new URLSearchParams(window.location.search).delete()
 
         setTimeout(
             function(){
-                window.location.reload()
+                window.open("https://xo-weather.netlify.app", "_self")
             }, 1000
-        )
+            )
     }
 
     const [uxSettings, setUxSettings] = React.useState({
@@ -142,6 +267,90 @@ export default function App(){
         premiumAcct:false,
         saveText: "Save"
     })
+
+    const [todayDate, setTodayDate] = React.useState(
+        {
+            day: "Monday",
+            date: "1",
+            month: "January",
+            year: "2023"
+        }
+    )
+        
+    React.useEffect(
+        function(){
+
+            function getData(){
+                const dateInfo = new Date()
+                let day = dateInfo.getDay()
+                const date = dateInfo.getDate()
+                let month = dateInfo.getMonth()
+                const year = dateInfo.getFullYear()
+
+                if(day === 0){
+                    day = "Sunday"
+                } else if(day === 1){
+                    day = "Monday"
+                } else if(day === 2){
+                    day = "Tuesday"
+                } else if(day === 3){
+                    day = "Wednesday"
+                } else if(day === 4){
+                    day = "Thursday"
+                } else if(day === 5){
+                    day = "Friday"
+                } else if(day === 6){
+                    day = "Saturday"
+                }
+
+                if(month === 0){
+                    month = "January"
+                } else if(month === 1){
+                    month = "February"
+                } else if(month === 2){
+                    month = "March"
+                } else if(month === 3){
+                    month = "April"
+                } else if(month === 4){
+                    month = "May"
+                } else if(month === 5){
+                    month = "June"
+                } else if(month === 6){
+                    month = "July"
+                } else if(month === 7){
+                    month = "August"
+                } else if(month === 8){
+                    month = "September"
+                } else if(month === 9){
+                    month = "October"
+                } else if(month === 10){
+                    month = "November"
+                } else if(month === 11){
+                    month = "December"
+                }
+
+                console.log(
+                    day, date, month, year
+                )
+
+                setTodayDate(
+                    function(prevState){
+                        return(
+                            {
+                                day: day,
+                                date: date,
+                                month: month,
+                                year: year
+                            }
+                        )
+                    }
+                )
+            }
+
+            window.addEventListener("load", getData)
+
+        }, []
+    )
 
     function contextMenu(event){
         event.preventDefault()
@@ -221,6 +430,41 @@ export default function App(){
     )
 
     console.log(browserSet)
+    
+    
+    React.useEffect(
+            function(){
+                const hasLoggedIn = localStorage.getItem("visitedBefore")
+                if (hasLoggedIn){
+                    setBrowserSet(
+                        {isLoggedIn : true}
+                        )
+                        setUiSettings(
+                            function(prevState){
+                                return (
+                                    {...prevState, count: prevState.count + 1, showWeather: false, showSignUp : false, showLogin: true, showGetStarted: false}
+                                )
+                            }
+                        )
+                    } else {
+                localStorage.setItem("visitedBefore", true)
+                setUiSettings(
+                    function(prevState){
+                        return (
+                            {...prevState, count: prevState.count + 1, showWeather: false, showSignUp : false, showLogin: false, showGetStarted: true}
+                        )
+                    }
+                )
+            }
+            
+            if (hasLoggedIn){
+                console.log("weather")
+            }
+        }, []
+    )
+
+    
+    
     React.useEffect(
         function(){
             // const pageInfo = window.location.search
@@ -271,7 +515,7 @@ export default function App(){
                 setUiSettings(
                     function(prevState){
                         return (
-                            {...prevState, count: prevState.count + 1, showWeather: false, showSignUp : false, showLogin: false, showGetStarted: true}
+                            {...prevState, count: prevState.count + 1}
                         )
                     }
                 )
@@ -279,42 +523,7 @@ export default function App(){
 
             // window.addEventListener("loadstart", gettingPageInfo)
         }, []
-        
-        )
-        
-        React.useEffect(
-            function(){
-                const hasLoggedIn = localStorage.getItem("visitedBefore")
-                if (hasLoggedIn){
-                    setBrowserSet(
-                        {isLoggedIn : true}
-                        )
-                        setUiSettings(
-                            function(prevState){
-                                return (
-                                    {...prevState, count: prevState.count + 1, showWeather: false, showSignUp : false, showLogin: true, showGetStarted: false}
-                                )
-                            }
-                        )
-                    } else {
-                localStorage.setItem("visitedBefore", true)
-                setUiSettings(
-                    function(prevState){
-                        return (
-                            {...prevState, count: prevState.count + 1, showWeather: false, showSignUp : false, showLogin: false, showGetStarted: true}
-                        )
-                    }
-                )
-            }
-            
-            if (hasLoggedIn){
-                console.log("weather")
-            }
-        }, []
     )
-
-    
-    
     return(
         <div className={uiSettings.showMenu? "container show-menu" : "container"}>
             <Preloader className = {uiSettings.showPreloader ? "show preloader type-big" : "preloader type-big yeah"}/>
@@ -331,9 +540,41 @@ export default function App(){
             
             <Login  className = {uiSettings.showLogin ? "show login type-big" : "login type-big"} onClick = {hamburgerClicked} onNext = {goToWeather}/>
             
-            <Weather  className = {uiSettings.showWeather ? "show weather type-big" : "weather type-big"} onClick = {hamburgerClicked} onNext = {gotoSearch}/>
+            <Weather
 
-            <Search className = {uiSettings.showSearch ? "show searchpage type-big": "searchpage type-big"} onPrev = {returntoWeather} onSubmit = {searchforCity}/>
+            day={todayDate.day}
+            date={todayDate.date}
+            month={todayDate.month}
+            year={todayDate.year}
+
+
+
+
+
+
+            cityName={weatherData.cityName}
+            cityTemp={weatherData.cityTemp}
+            cityWindSpeed={weatherData.cityWindSpeed}
+            cityLatitude={weatherData.cityLatitude}
+            cityLongitude={weatherData.cityLongitude}
+            cityAvailable={weatherData.cityAvailable}
+            cityCondition={weatherData.cityCondition}
+            cityDefault={weatherData.cityDefault}
+            cityHumidity={weatherData.cityHumidity}
+            className = {uiSettings.showWeather ? "show weather type-big" : "weather type-big"} onClick = {hamburgerClicked} onNext = {gotoSearch}/>
+
+            <Search
+            visible={searchWeatherData.visible}
+            cityName={searchWeatherData.cityName}
+            cityTemp={searchWeatherData.cityTemp}
+            cityWindSpeed={searchWeatherData.cityWindSpeed}
+            cityLatitude={searchWeatherData.cityLatitude}
+            cityLongitude={searchWeatherData.cityLongitude}
+            cityAvailable={searchWeatherData.cityAvailable}
+            cityCondition={searchWeatherData.cityCondition}
+            cityDefault={searchWeatherData.cityDefault}
+            cityHumidity={searchWeatherData.cityHumidity}
+            className = {uiSettings.showSearch ? "show searchpage type-big": "searchpage type-big"} onPrev = {returntoWeather} onSubmit = {searchforCity}  onChange = {searchSaving} setDefault={setDefault}/>
 
             <Settings className = {uxSettings.visible ? "show settings type-big" : "settings type-big"} onClick = {contextMenuX} saveText = {uxSettings.saveText} onSubmit = {contextMenuSubmit} onClear = {clearDataAll}/>
 
