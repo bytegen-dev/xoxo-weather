@@ -193,7 +193,7 @@ export default function App(){
                 ],
             }
     )
-    console.log(wwt)
+    // console.log(wwt)
 
     React.useEffect(
         function(){
@@ -222,8 +222,10 @@ export default function App(){
                     )
                 }
             )
-        }, [wwt.main.humidity, wwt.wind.speed, wwt.main.temp, wwt.weather]
+        }, [wwt]
     )
+
+// wwt.main.humidity, wwt.wind.speed, wwt.main.temp, wwt.weather
 
     function setDefault(){
         
