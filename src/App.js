@@ -81,38 +81,48 @@ export default function App(){
                 }
     )
             
-    function goToWeather(event){
+    async function goToWeather(event){
         event.preventDefault()
+        // const apiKey = "ea4ed7d5e39d7c2705453e9b56a2fdd0"
+        const apiKey = "7fdcfe0794387359bd6a79824cbca277"
+
+        const city = "lagos"
+        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+        // fetch(apiUrl)
+        try{
+            const res = await fetch(apiUrl)
+            const data = await res.json()
+            await setWWt(data)
+            
+            await setWeatherData(
+                function(prevState){
+                    return (
+                        {
+                            ...prevState,
+                            cityName : "Lagos",
+                            cityTemp : (parseInt(wwt.main.temp) - 273.15).toFixed(2),
+                            cityHumidity : wwt.main.humidity,
+                            cityWindSpeed : wwt.wind.speed,
+                            cityCondition: wwt.weather[0].description,
+                            cityImg: wwt.weather[0].icon,
+                            // count: prevState.count + 1
+                            // count: 1
+                        }
+                    )
+                }
+            )
+
+            setUiSettings(
+                function(prevState){
+                    return (
+                        {...prevState, count: prevState.count + 1, showWeather: true,showLogin: false, showSignUp: false, showGetStarted: false}
+                    )
+                }
+            )
+        } catch(error){
+            alert(error)
+        }
         async function fetchData(){
-            const apiKey = "ea4ed7d5e39d7c2705453e9b56a2fdd0"
-            const city = "lagos"
-            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
-            fetch(apiUrl)
-            try{
-                const res = await fetch(apiUrl)
-                const data = await res.json()
-                await setWWt(data)
-                
-                setWeatherData(
-                    function(prevState){
-                        return (
-                            {
-                                ...prevState,
-                                cityName : "Lagos",
-                                cityTemp : (parseInt(wwt.main.temp) - 273.15).toFixed(2),
-                                cityHumidity : wwt.main.humidity,
-                                cityWindSpeed : wwt.wind.speed,
-                                cityCondition: wwt.weather[0].description,
-                                cityImg: wwt.weather[0].icon,
-                                // count: prevState.count + 1
-                                count: 1
-                            }
-                        )
-                    }
-                )
-            } catch(error){
-                console.log(error)
-            }
             // .then(res => res.json())
             // .then(data => setWWt(data))
             // .catch(error => console.error(error))
@@ -124,13 +134,6 @@ export default function App(){
         fetchData()
 
 
-        setUiSettings(
-            function(prevState){
-                return (
-                    {...prevState, count: prevState.count + 1, showWeather: true,showLogin: false, showSignUp: false, showGetStarted: false}
-                )
-            }
-        )
     }
     
     function hamburgerClickedX(){
