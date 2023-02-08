@@ -181,9 +181,9 @@ export default function App(){
         if(searchWeatherData.cityDefault === false){
             localStorage.setItem("defaultCity", weatherData.cityName)
             setWeatherData(
-                function(prevState){
+                function(){
                     return ({
-                        ...prevState, cityDefault : true
+                        ...searchWeatherData, cityDefault : true
                     })
                 }
             )
