@@ -60,73 +60,40 @@ export default function App(){
                     )
                 }
                 )
-            }
+    }
     const [wwt, setWWt] = React.useState(
                 {
-                    main: {
-                        temp: "",
-                        humidity: "",
-                    },
-                    
-                    wind: {
-                        speed: "",
-                    },
-        
-                    weather:[
-                        "description",
-                        "icon"
+                    weather: [
+                        ""
                     ],
-        
-                    count: 0
+
+                    main: {
+
+                    }
                 }
     )
-            
-    async function goToWeather(event){
-        event.preventDefault()
-        // const apiKey = "ea4ed7d5e39d7c2705453e9b56a2fdd0"
-        const apiKey = "7fdcfe0794387359bd6a79824cbca277"
+    
+    
 
-        const city = "lagos"
-        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
-        // fetch(apiUrl)
-        try{
-            const res = await fetch(apiUrl)
-            const data = await res.json()
-            await setWWt(data)
-            
-            await setWeatherData(
-                function(prevState){
-                    return (
-                        {
-                            ...prevState,
-                            cityName : "Lagos",
-                            cityTemp : (parseInt(wwt.main.temp) - 273.15).toFixed(2),
-                            cityHumidity : wwt.main.humidity,
-                            cityWindSpeed : wwt.wind.speed,
-                            cityCondition: wwt.weather[0].description,
-                            cityImg: wwt.weather[0].icon,
-                            // count: prevState.count + 1
-                            // count: 1
-                        }
-                    )
-                }
-            )
+    React.useEffect(
+        function(){
 
-            setUiSettings(
-                function(prevState){
-                    return (
-                        {...prevState, count: prevState.count + 1, showWeather: true,showLogin: false, showSignUp: false, showGetStarted: false}
-                    )
-                }
-            )
-        } catch(error){
-            alert("poor/no internet connection 💔")
-        }
+            const fetchData = async () =>{
+                const apiKey = "7fdcfe0794387359bd6a79824cbca277"
+                const city = "lagos"
+                const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                setWWt(data);
+                console.log(data)
+            }
 
-        // fetchData()
+            fetchData()
 
 
-    }
+        }, []
+    )
+
     
     function hamburgerClickedX(){
         console.log("hamburger-closed")
@@ -152,8 +119,8 @@ export default function App(){
                     }
                 )
             }
-        )
-    }
+            )
+        }
     
     function gotoSearch(){
         setUiSettings(
@@ -188,7 +155,7 @@ export default function App(){
         cityCondition: "sunny"
     })
 
-    console.log(defaultCityData)
+    // console.log(defaultCityData)
 
     React.useEffect(
         function(){
@@ -199,12 +166,12 @@ export default function App(){
             )
         }, []
     )
-
+    
     const [weatherData, setWeatherData] = React.useState(
         {
             cityAvailable: true,
             cityDefault: true,
-            cityName : "Lagos",
+            cityName : defaultCityData.cityName,
             cityTemp : "45",
             cityWindSpeed : "3.6",
             cityLongitude : "1200",
@@ -216,7 +183,7 @@ export default function App(){
         }
         )
         
-    const [searchWeatherData, setSearchWeatherData] = React.useState(
+        const [searchWeatherData, setSearchWeatherData] = React.useState(
         {
             cityAvailable: true,
             cityDefault: false,
@@ -274,7 +241,67 @@ export default function App(){
 
     }
 
+    
+    const [ppt, setPpt] = React.useState(
+        {
+            main: {
+                temp: "",
+                humidity: "",
+            },
+            
+            wind: {
+                speed: "",
+            },
+
+            weather:[
+                "description",
+                "icon"
+            ],
+
+            count: 0
+        }
+    )
+    
+    function searchforCity(event){
+        event.preventDefault()
+        
+        const apiKey = "7fdcfe0794387359bd6a79824cbca277"
+        const city = searchWeatherData.cityName
+        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+
+        fetch(apiUrl)
+        .then(res => res.json())
+        .then(data => setPpt(data))
+        // try{
+            //     const res = await fetch(apiUrl)
+        //     const data = await res.json()
+        //     setWWt(data)
+        console.log(ppt)
+
+
+
+        console.log("user searched")
+        setSearchWeatherData(
+            function(prevState){
+                return (
+                    {
+                        ...prevState,
+                        cityAvailable: true,
+                        cityTemp : (parseInt(ppt.main.temp) - 273.15).toFixed(2),
+                        cityHumidity : ppt.main.humidity,
+                        cityWindSpeed : ppt.wind.speed,
+                        cityCondition: ppt.weather[0].description,
+                        cityImg: ppt.weather[0].icon,
+                        cityDefault: false,
+                        visible: true
+                    }
+                )
+            }
+        )
+    }
+
     function searchSaving(event){
+        // searchforCity()
         setSearchWeatherData(
             function(prevState){
                 return(
@@ -285,32 +312,17 @@ export default function App(){
                 )
             }
         )
+        
+        const apiKey = "7fdcfe0794387359bd6a79824cbca277"
+        const city = searchWeatherData.cityName
+        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
 
-        console.log(searchWeatherData.cityName)
-    }
+        fetch(apiUrl)
+        .then(res => res.json())
+        .then(data => setPpt(data))
 
-    function searchforCity(event){
-        event.preventDefault()
-        console.log("user searched")
-        setSearchWeatherData(
-            function(prevState){
-                return (
-                    {
-                        ...prevState,
-                        cityAvailable: true,
-                        cityTemp: "33.4",
-                        cityHumidity: "66",
-                        cityWindSpeed: "2.4",
-                        cityLongitude: "140",
-                        cityLatitude: "2400",
-                        cityImg: "",
-                        cityDefault: false,
-                        cityCondition: "sunny",
-                        visible: true
-                    }
-                )
-            }
-        )
+
+        // console.log(searchWeatherData.cityName)
     }
 
 
@@ -333,7 +345,29 @@ export default function App(){
         premiumAcct:false,
         saveText: "Save"
     })
+    
+    function goToWeather(event){
+        event.preventDefault()
+        setUiSettings(
+            function(prevState){
+                return (
+                    {...prevState, count: prevState.count + 1, showWeather: true,showLogin: false, showSignUp: false, showGetStarted: false}
+                )
+            }
+        )
+        
+        // const apiKey = "ea4ed7d5e39d7c2705453e9b56a2fdd0"
+        
+        // fetchData()
 
+        // } catch(error){
+        //     alert("poor/no internet connection 💔")
+        // }
+
+        // fetchData()
+
+
+    }
     const [todayDate, setTodayDate] = React.useState(
         {
             day: "Monday",
@@ -341,7 +375,7 @@ export default function App(){
             month: "January",
             year: "2023"
         }
-    )
+        )
         
     React.useEffect(
         function(){
@@ -398,9 +432,9 @@ export default function App(){
                 month = "December"
             }
 
-            console.log(
-                day, date, month, year, timehr, timemin
-            )
+            // console.log(
+            //     day, date, month, year, timehr, timemin
+            // )
 
             setTodayDate(
                 function(prevState){
@@ -623,16 +657,16 @@ export default function App(){
 
 
 
-            cityImg={weatherData.cityImg}
+            cityImg={wwt.weather[0].icon}
             cityName={weatherData.cityName}
-            cityTemp={weatherData.cityTemp}
+            cityTemp={wwt.main.temp}
             cityWindSpeed={weatherData.cityWindSpeed}
             cityLatitude={weatherData.cityLatitude}
             cityLongitude={weatherData.cityLongitude}
             cityAvailable={weatherData.cityAvailable}
-            cityCondition={weatherData.cityCondition}
+            cityCondition={wwt.weather[0].description}
             cityDefault={weatherData.cityDefault}
-            cityHumidity={weatherData.cityHumidity}
+            cityHumidity={wwt.main.humidity}
             className = {uiSettings.showWeather ? "show weather type-big" : "weather type-big"} onClick = {hamburgerClicked} onNext = {gotoSearch}/>
 
             <Search
