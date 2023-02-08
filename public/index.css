@@ -749,7 +749,7 @@ body{
     }
     
     .preloader{
-        display: none;
+        /* display: none; */
     }
     
     .weather{
@@ -760,7 +760,7 @@ body{
     }
 
     .login, .signup, .gettingstarted{
-        display: none;
+        /* display: none; */
     }
 
     .weather h2{
