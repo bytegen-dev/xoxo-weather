@@ -50,20 +50,80 @@ export default function App(){
             }
         )
     }
-
+    
     function goToLogin(event){
         event.preventDefault()
         setUiSettings(
             function(prevState){
                 return (
                     {...prevState, count: prevState.count + 1, showLogin: true, showSignUp: false, showGetStarted: false}
+                    )
+                }
                 )
             }
-        )
-    }
-    
+    const [wwt, setWWt] = React.useState(
+                {
+                    main: {
+                        temp: "",
+                        humidity: "",
+                    },
+                    
+                    wind: {
+                        speed: "",
+                    },
+        
+                    weather:[
+                        "description",
+                        "icon"
+                    ],
+        
+                    count: 0
+                }
+    )
+            
     function goToWeather(event){
         event.preventDefault()
+        async function fetchData(){
+            const apiKey = "ea4ed7d5e39d7c2705453e9b56a2fdd0"
+            const city = "lagos"
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+            fetch(apiUrl)
+            try{
+                const res = await fetch(apiUrl)
+                const data = await res.json()
+                await setWWt(data)
+                
+                setWeatherData(
+                    function(prevState){
+                        return (
+                            {
+                                ...prevState,
+                                cityName : "Lagos",
+                                cityTemp : (parseInt(wwt.main.temp) - 273.15).toFixed(2),
+                                cityHumidity : wwt.main.humidity,
+                                cityWindSpeed : wwt.wind.speed,
+                                cityCondition: wwt.weather[0].description,
+                                cityImg: wwt.weather[0].icon,
+                                // count: prevState.count + 1
+                                count: 1
+                            }
+                        )
+                    }
+                )
+            } catch(error){
+                console.log(error)
+            }
+            // .then(res => res.json())
+            // .then(data => setWWt(data))
+            // .catch(error => console.error(error))
+
+
+
+        }
+
+        fetchData()
+
+
         setUiSettings(
             function(prevState){
                 return (
@@ -83,7 +143,7 @@ export default function App(){
             }
         )
     }
-
+    
     function returnGetStarted(){
         setUiSettings(
             function(prevState){
@@ -99,7 +159,7 @@ export default function App(){
             }
         )
     }
-
+    
     function gotoSearch(){
         setUiSettings(
             function(prevState){
@@ -177,70 +237,7 @@ export default function App(){
         }
         )
         
-        const [wwt, setWWt] = React.useState(
-            {
-                main: {
-                    temp: "",
-                    humidity: "",
-                },
-                
-                wind: {
-                    speed: "",
-                },
-
-                weather:[
-                    "description",
-                    "icon"
-                ],
-
-                count: 0
-            }
-    )
-    // console.log(wwt)
-
-    React.useEffect(
-        function(){
-            async function fetchData(){
-                const apiKey = "ea4ed7d5e39d7c2705453e9b56a2fdd0"
-                const city = "lagos"
-                const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
-                fetch(apiUrl)
-                try{
-                    const res = await fetch(apiUrl)
-                    const data = await res.json()
-                    setWWt(data)
-                    
-                    setWeatherData(
-                        function(prevState){
-                            return (
-                                {
-                                    ...prevState,
-                                    cityName : "Lagos",
-                                    cityTemp : (parseInt(wwt.main.temp) - 273.15).toFixed(2),
-                                    cityHumidity : wwt.main.humidity,
-                                    cityWindSpeed : wwt.wind.speed,
-                                    cityCondition: wwt.weather[0].description,
-                                    cityImg: wwt.weather[0].icon,
-                                    // count: prevState.count + 1
-                                    count: 1
-                                }
-                            )
-                        }
-                    )
-                } catch(error){
-                    console.log(error)
-                }
-                // .then(res => res.json())
-                // .then(data => setWWt(data))
-                // .catch(error => console.error(error))
     
-    
-
-            }
-
-            fetchData()
-        }, [weatherData.count]
-    )
 
 // wwt.main.humidity, wwt.wind.speed, wwt.main.temp, wwt.weather
 
