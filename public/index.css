@@ -956,7 +956,7 @@ body{
         opacity: 1;
     }
 
-    .weather .weather-details .favourite .is.default .setdefault i{
+    .weather .favourite .is.default .setdefault i{
         scale: 1;
 
     }
@@ -1522,6 +1522,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    display: none;
 }
 
 
