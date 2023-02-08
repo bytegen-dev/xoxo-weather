@@ -120,18 +120,10 @@ export default function App(){
                 }
             )
         } catch(error){
-            alert(error)
-        }
-        async function fetchData(){
-            // .then(res => res.json())
-            // .then(data => setWWt(data))
-            // .catch(error => console.error(error))
-
-
-
+            alert("poor/no internet connection 💔")
         }
 
-        fetchData()
+        // fetchData()
 
 
     }
