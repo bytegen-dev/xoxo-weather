@@ -286,8 +286,8 @@ export default function App(){
     React.useEffect(
         function(){
 
-            function getData(){
-                const dateInfo = new Date()
+            async function getData(){
+                const dateInfo =  await new Date()
                 let day = dateInfo.getDay()
                 const date = dateInfo.getDate()
                 let month = dateInfo.getMonth()
@@ -343,6 +343,7 @@ export default function App(){
                     function(prevState){
                         return(
                             {
+                                ...prevState,
                                 day: day,
                                 date: date,
                                 month: month,

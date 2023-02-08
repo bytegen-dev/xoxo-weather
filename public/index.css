@@ -891,6 +891,9 @@ body{
         justify-content: flex-end;
         align-items: center;
         font-size: 27px;
+        position: fixed;
+        bottom: 30px;
+        left: 20px;
         /* margin-bottom: 30px; */
         /* margin-bottom: 50px; */
     }
