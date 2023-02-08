@@ -8,7 +8,7 @@ export default function Weather(props){
                     <i className="fa fa-bars"/>
                     <i className="fa fa-close"/>
                 </div>
-                <div className="city--name">xoxo</div>
+                <div className="city--name">{props.timehr} : {props.timemin}</div>
                 <div className="user--login"><i className="fa fa-user"/></div>
             </div>
             <div className="weather-details">

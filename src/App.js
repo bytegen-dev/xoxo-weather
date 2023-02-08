@@ -289,6 +289,8 @@ export default function App(){
             // async function getData(){
             // }
             const dateInfo =  new Date()
+            let timehr = dateInfo.getHours()
+            let timemin = dateInfo.getMinutes()
             let day = dateInfo.getDay()
             const date = dateInfo.getDate()
             let month = dateInfo.getMonth()
@@ -337,7 +339,7 @@ export default function App(){
             }
 
             console.log(
-                day, date, month, year
+                day, date, month, year, timehr, timemin
             )
 
             setTodayDate(
@@ -348,7 +350,9 @@ export default function App(){
                             day: day,
                             date: date,
                             month: month,
-                            year: year
+                            year: year,
+                            hour: timehr,
+                            min: timemin
                         }
                     )
                 }
@@ -356,7 +360,7 @@ export default function App(){
 
             // window.addEventListener("load", getData)
 
-        }, []
+        }, [uiSettings]
     )
 
     function contextMenu(event){
@@ -548,7 +552,8 @@ export default function App(){
             <Login  className = {uiSettings.showLogin ? "show login type-big" : "login type-big"} onClick = {hamburgerClicked} onNext = {goToWeather}/>
             
             <Weather
-
+            timehr={todayDate.hour}
+            timemin={todayDate.min}
             day={todayDate.day}
             date={todayDate.date}
             month={todayDate.month}
