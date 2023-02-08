@@ -174,6 +174,55 @@ export default function App(){
             cityHumidity: "Nan",
             cityCondition: "Nan"
         }
+        )
+        
+        const [wwt, setWWt] = React.useState(
+            {
+                main: {
+                    temp: "",
+                    humidity: "",
+                },
+                
+                wind: {
+                    speed: "",
+                },
+
+                weather:[
+                    "description",
+                    "icon"
+                ],
+            }
+    )
+    console.log(wwt)
+
+    React.useEffect(
+        function(){
+            const apiKey = "ea4ed7d5e39d7c2705453e9b56a2fdd0"
+            const city = "lagos"
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+            fetch(apiUrl)
+            // await
+            .then(res => res.json())
+            .then(data => setWWt(data))
+            .catch(error => console.error(error))
+
+
+            setWeatherData(
+                function(prevState){
+                    return (
+                        {
+                            ...prevState,
+                            cityName : "Lagos",
+                            cityTemp : (parseInt(wwt.main.temp) - 273.15).toFixed(2),
+                            cityHumidity : wwt.main.humidity,
+                            cityWindSpeed : wwt.wind.speed,
+                            cityCondition: wwt.weather[0].description,
+                            cityImg: wwt.weather[0].icon
+                        }
+                    )
+                }
+            )
+        }, [wwt.main.humidity, wwt.wind.speed, wwt.main.temp, wwt.weather]
     )
 
     function setDefault(){
@@ -563,7 +612,7 @@ export default function App(){
 
 
 
-
+            cityImg={weatherData.cityImg}
             cityName={weatherData.cityName}
             cityTemp={weatherData.cityTemp}
             cityWindSpeed={weatherData.cityWindSpeed}
