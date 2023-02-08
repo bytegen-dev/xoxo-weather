@@ -27,18 +27,18 @@ export default function Weather(props){
                     </div>
                 </div>
 
-                <div className="favourite">
-                    <div className="heart">
-                        <i className="fa fa-heart"/>
-                    </div>
-                    <div className={props.cityDefault ? "is default" : "default"}>
-                        <span>Default</span> <div className="setdefault"><i className="fa fa-check"/></div>
-                    </div>
-                    {/* <img src="favourite--empty.png" /> */}
-                </div>
                 {/* <div className="about--city">
                     about Lagos
                 </div> */}
+            </div>
+            <div className="favourite">
+                <div className="heart">
+                    <i className="fa fa-heart"/>
+                </div>
+                <div className={props.cityDefault ? "is default" : "default"}>
+                    <span>Default</span> <div className="setdefault"><i className="fa fa-check"/></div>
+                </div>
+                    {/* <img src="favourite--empty.png" /> */}
             </div>
             <div className="searchforcity" onClick={props.onNext}>
                 <div className="ripple">
