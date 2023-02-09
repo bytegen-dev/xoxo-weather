@@ -2,6 +2,9 @@ import React from "react";
 
 export default function Menu(props){
     // var clear = false
+    function appInProduction(){
+        alert("XoXo weather mobile app is currently in production ✅")
+    }
 
 
 
@@ -10,9 +13,9 @@ export default function Menu(props){
             {
                 
                 <div className="menu-links-holder">
-                <div className="link active">Get Started</div>
-                <div className="link">Sign Up</div>
-                <div className="link">Log in</div>
+                <div className="link active" onClick={props.onGotoGetStarted}>Get Started</div>
+                <div className="link" onClick={props.onGotoSignUp}>Sign Up</div>
+                <div className="link" onClick={props.onGotoLogin}>Log in</div>
                 <div className="site-info">
                     <div>XoXo™ <button><i className="fa fa-link"/></button></div>
                     <div className="my-links">
@@ -25,7 +28,7 @@ export default function Menu(props){
                 {/* <div className="link">Log Out</div> */}
                 <a target="_blank" rel="noreferrer" href="https://wa.me/+2347035658853" className="link customer-care"><i className="fa fa-comments"/></a>
                 {/* <div className="link">Dark Mode</div> */}
-                <div className="link download-app">
+                <div className="link download-app" onClick={appInProduction}>
                     Download App
                 </div>
                 <div className="link menu-option" onClick={props.onNext}>Options</div>

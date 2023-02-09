@@ -40,18 +40,31 @@ export default function App(){
             }
         )
     }
-
-    function goToSignUp(){
+    
+    function hamburgerClickedX(){
+        console.log("hamburger-closed")
         setUiSettings(
             function(prevState){
                 return (
-                    {...prevState, showSignUp: true, showGetStarted: false}
+                    {...prevState, showMenu: false}
+                )
+            }
+        )
+    }
+
+    function goToSignUp(){
+        hamburgerClickedX()
+        setUiSettings(
+            function(prevState){
+                return (
+                    {...prevState, showSignUp: true, showGetStarted: false, showLogin:false}
                 )
             }
         )
     }
     
     function goToLogin(event){
+        hamburgerClickedX()
         event.preventDefault()
         setUiSettings(
             function(prevState){
@@ -117,16 +130,6 @@ export default function App(){
     )
 
     
-    function hamburgerClickedX(){
-        console.log("hamburger-closed")
-        setUiSettings(
-            function(prevState){
-                return (
-                    {...prevState, showMenu: false}
-                )
-            }
-        )
-    }
     
     function returnGetStarted(){
         setUiSettings(
@@ -138,6 +141,24 @@ export default function App(){
                         showSignUp : false,
                         showWeather : false,
                         showGetStarted : true,
+                    }
+                )
+            }
+            )
+    }
+
+    function gotoGetStarted(){
+        hamburgerClickedX()
+        setUiSettings(
+            function(prevState){
+                return (
+                    {
+                        ...prevState,
+                        showLogin : false,
+                        showSignUp : false,
+                        showWeather : false,
+                        showGetStarted : true,
+                        count: prevState.count + 1
                     }
                 )
             }
@@ -752,7 +773,7 @@ export default function App(){
             <Preloader className = {uiSettings.showPreloader ? "show preloader type-big" : "preloader type-big yeah"}/>
             
             <Menu className = "menu" onClick = {hamburgerClicked} onClickX = {hamburgerClickedX} onClear = {clearDataAll} onNext = {contextMenu} backgroundImageLink={backgroundImage.link}
-            backgroundImageAlt={backgroundImage.alt}/>
+            backgroundImageAlt={backgroundImage.alt} onGotoLogin={goToLogin} onGotoSignUp={goToSignUp} onGotoGetStarted={gotoGetStarted}/>
 
             <GettingStarted className = {uiSettings.showGetStarted ? "show gettingstarted type-big" : "gettingstarted type-big"} onClick = {hamburgerClicked} onNext = {goToSignUp} backgroundImageLink={backgroundImage.link}
             backgroundImageAlt={backgroundImage.alt}/>
