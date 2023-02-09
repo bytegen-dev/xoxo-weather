@@ -275,21 +275,31 @@ export default function App(){
     
     const [ppt, setPpt] = React.useState(
         {
-            main: {
-                temp: "",
-                humidity: "",
-            },
             
-            wind: {
-                speed: "",
+            data:{
+                main: {
+                    temp: "",
+                    humidity: "",
+                },
+                
+                wind: {
+                    speed: "",
+                },
+    
+                weather:[
+                    "description",
+                    "icon"
+                ],
+                cod: ""
             },
-
-            weather:[
-                "description",
-                "icon"
-            ],
 
             count: 0
+        }
+    )
+
+    const [invalidCity, setInvalidCity] = React.useState(
+        {
+            visible: false
         }
     )
     
@@ -315,27 +325,60 @@ export default function App(){
             const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
             const response = await fetch(apiUrl);
             const data = await response.json();
-            setPpt(data);
-            console.log(data)
-            setSearchWeatherData(
-                function(prevState){
+            if (data.cod === "404") {
+                console.log("invalid")
+                    setSearchWeatherData(
+                        function(prevState){
+                        return (
+                            {
+                                ...prevState,
+                                visible: false
+                            }
+                        )
+                    }
+
+                    )
+                    setInvalidCity(function(prevState){
+                        return(
+                            {...prevState, visible: true}
+                            )
+                        })
+                        return
+                    } else{
+                        setPpt(
+                            function(prevState){
+                                return({
+                                    ...prevState, data: data,
+                                })
+                            }
+                        );
+                        setInvalidCity(function(prevState){
+                            return(
+                                {...prevState, visible: false}
+                    )
+                })
+                console.log("ppt", ppt)
+                setSearchWeatherData(
+                    function(prevState){
                     return (
                         {
                             ...prevState,
                             cityAvailable: true,
-                            cityTemp : (parseInt(ppt.main.temp) - 273.15).toFixed(2),
-                            cityHumidity : ppt.main.humidity,
-                            cityWindSpeed : ppt.wind.speed,
-                            cityCondition: ppt.weather[0].description,
-                            cityImg: ppt.weather[0].icon,
+                            cityTemp : (parseInt(ppt.data.main.temp) - 273.15).toFixed(2),
+                            cityHumidity : ppt.data.main.humidity,
+                            cityWindSpeed : ppt.data.wind.speed,
+                            cityCondition: ppt.data.weather[0].description,
+                            cityImg: ppt.data.weather[0].icon,
                             cityDefault: false,
                             visible: true
                         }
                     )
                 }
             )
+            }
+            // console.log(ppt)
         }
-
+        
         fetchData()
 
 
@@ -406,6 +449,16 @@ export default function App(){
         // fetchData()
 
 
+    }
+
+    function invalidCityHide(){
+        setInvalidCity(
+            function(prevState){
+                return (
+                    {...prevState, visible: false}
+                )
+            }
+        )
     }
     const [todayDate, setTodayDate] = React.useState(
         {
@@ -726,19 +779,19 @@ export default function App(){
             className = {uiSettings.showWeather ? "show weather type-big" : "weather type-big"} onClick = {hamburgerClicked} onNext = {gotoSearch}/>
 
             <Search
+            inValidCityHide= {invalidCityHide}
+            invalidvisible= {invalidCity.visible}
             visible={searchWeatherData.visible}
             cityName={searchWeatherData.cityName}
-            cityImg={ppt.weather[0].icon}
-            // cityTemp={searchWeatherData.cityTemp}
-            cityTemp={(parseInt(ppt.main.temp) - 273.15).toFixed(2)}
-            cityWindSpeed={ppt.wind.speed}
+            cityImg={ppt.data.weather[0].icon}
+            cityTemp={(parseInt(ppt.data.main.temp) - 273.15).toFixed(2)}
+            cityWindSpeed={ppt.data.wind.speed}
             cityLatitude={searchWeatherData.cityLatitude}
             cityLongitude={searchWeatherData.cityLongitude}
             cityAvailable={searchWeatherData.cityAvailable}
-            // cityCondition={searchWeatherData.cityCondition}
-            cityCondition={ppt.weather[0].description}
+            cityCondition={ppt.data.weather[0].description}
             cityDefault={searchWeatherData.cityDefault}
-            cityHumidity={ppt.main.humidity}
+            cityHumidity={ppt.data.main.humidity}
             className = {uiSettings.showSearch ? "show searchpage type-big": "searchpage type-big"} onPrev = {returntoWeather} onSubmit = {searchforCity}  onChange = {searchSaving} setDefault={setDefault}/>
 
             <Settings className = {uxSettings.visible ? "show settings type-big" : "settings type-big"} onClick = {contextMenuX} saveText = {uxSettings.saveText} onSubmit = {contextMenuSubmit} onClear = {clearDataAll}/>

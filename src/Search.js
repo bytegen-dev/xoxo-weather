@@ -16,7 +16,12 @@ export default function Search(props){
                     {/* <button className="options">advanced <i className="fa fa-gear"/></button> */}
                 </form>
             </div>
+                <div className={props.invalidvisible ? "show cod" : "cod"}>
+                    <h1>404</h1>
                 <h1>City not Found</h1>
+                <a href="https://wa.me/+2347035658853">make a complaint</a>
+                <button onClick={props.inValidCityHide} className="return">Back</button>
+                </div>
                 <div className={props.visible ? "show weather-details" : "weather-details"}>
                     <h2>{props.cityName}</h2>
                     <div className="weather--condition">
