@@ -8,10 +8,20 @@ export default function Menu(props){
     return (
         <div className={props.className}>
             {
+                
                 <div className="menu-links-holder">
                 <div className="link active">Get Started</div>
                 <div className="link">Sign Up</div>
                 <div className="link">Log in</div>
+                <div className="site-info">
+                    <div>XoXo™ <button><i className="fa fa-link"/></button></div>
+                    <div className="my-links">
+                        
+                        <a target="_blank" href="https://github.com/scottdhollar"><i className="fa-brands fa-github"/></a>
+                        <a target="_blank" href="https://linkedin.com/in/tertiux44"><i className="fa-brands fa-linkedin-in"/></a>
+                        <a target="_blank" href="mailto:secondsonofadebayo@gmail.com"><i className="fa fa-envelope"/></a>
+                    </div>
+                </div>
                 {/* <div className="link">Log Out</div> */}
                 <a target="_blank" rel="noreferrer" href="https://wa.me/+2347035658853" className="link customer-care"><i className="fa fa-comments"/></a>
                 {/* <div className="link">Dark Mode</div> */}

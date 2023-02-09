@@ -97,6 +97,66 @@ body{
     /* transform: translateX(0); */
 }
 
+.preloader{
+    /* display: none; */
+}
+
+.site-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    padding: 0 30px;
+    gap: 30px;
+}
+
+.site-info div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    font-size: 20px;
+}
+
+.site-info button{
+    background-color: #fff;
+    width: 30px;
+    height: 30px;
+    border: none;
+    color: rgb(42, 25, 52);
+    font-size: 15px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease;
+}
+.my-links{
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease;
+    font-size: 15px;
+}
+
+.site-info:hover .my-links{
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.my-links a{
+    color: #a198a1;
+    transition: all 0.5s ease;
+}
+
+.my-links a:hover{
+    /* opacity: 1; */
+    color: #fff;
+}
+
 .show-menu .menu{
     transform: translateX(0);
     /* opacity: 1; */
