@@ -69,6 +69,20 @@ export default function App(){
 
                     main: {
 
+                    },
+                    
+                    data: {
+                        weather: [
+                            ""
+                        ],
+    
+                        main: {
+                            
+                        },
+
+                        wind: {
+                            
+                        }
                     }
                 }
     )
@@ -87,10 +101,10 @@ export default function App(){
                 setWWt(function(prevState){
                     return({
                         ...prevState,
-                        data
+                        data: data
                     })
                 });
-                console.log(data)
+                console.log(wwt)
             }
 
             fetchData()
@@ -223,7 +237,7 @@ export default function App(){
         
         if(searchWeatherData.cityDefault === false){
             localStorage.setItem("defaultCity", weatherData.cityName)
-            setWWt(ppt.data)
+            setWWt(ppt)
                 setWeatherData(
                     function(){
                         return ({
@@ -765,16 +779,16 @@ export default function App(){
             backgroundImageLink={backgroundImage.link}
             backgroundImageAlt={backgroundImage.alt}
 
-            cityImg={wwt.weather[0].icon}
+            cityImg={wwt.data.weather[0].icon}
             cityName={weatherData.cityName}
-            cityTemp={(parseInt(wwt.main.temp) - 273.15).toFixed(2)}
-            cityWindSpeed={weatherData.cityWindSpeed}
+            cityTemp={(parseInt(wwt.data.main.temp) - 273.15).toFixed(2)}
+            cityWindSpeed={wwt.data.wind.speed}
             cityLatitude={weatherData.cityLatitude}
             cityLongitude={weatherData.cityLongitude}
             cityAvailable={weatherData.cityAvailable}
             cityCondition={wwt.weather[0].description}
             cityDefault={weatherData.cityDefault}
-            cityHumidity={wwt.main.humidity}
+            cityHumidity={wwt.data.main.humidity}
             className = {uiSettings.showWeather ? "show weather type-big" : "weather type-big"} onClick = {hamburgerClicked} onNext = {gotoSearch}/>
 
             <Search
