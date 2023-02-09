@@ -1149,6 +1149,8 @@ body{
     visibility: hidden;
     transition: all 0.25s ease;
     flex-direction: column;
+    background-color: rgba(246, 238, 249, 0.816);
+    backdrop-filter: blur(10px);
 }
 
 .show.searchpage{
