@@ -952,7 +952,7 @@ body{
     .weather .favourite{
         /* width: 100%; */
         /* border: 2px solid; */
-        display: flex;
+        display: none;
         justify-content: flex-end;
         align-items: center;
         font-size: 27px;
