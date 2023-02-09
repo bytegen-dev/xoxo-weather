@@ -66,8 +66,8 @@ export default function App(){
                     
                     data: {
                         weather: [
-                            "nan",
-                            "nan"
+                            "description",
+                            "icon"
                         ],
     
                         main: {
@@ -76,7 +76,8 @@ export default function App(){
 
                         wind: {
 
-                        }
+                        },
+                        cod: ""
                     }
                 }
     )
@@ -92,12 +93,19 @@ export default function App(){
                 const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
                 const response = await fetch(apiUrl);
                 const data = await response.json();
-                setWWt(function(prevState){
-                    return({
-                        ...prevState,
-                        data: data
-                    })
-                });
+                if (data.cod === "404") {
+                    alert("invalid")
+                    return    
+                }
+
+                else{
+                    setWWt(function(prevState){
+                        return({
+                            ...prevState,
+                            data: data
+                        })
+                    });
+                }
                 // console.log(wwt)
             }
 
