@@ -1870,7 +1870,7 @@ body{
 
 ::-webkit-scrollbar-button{
     width: 0px;
-    height: 10px;
+    height: 20px;
 }
     
 ::-webkit-scrollbar-track{
