@@ -1,8 +1,12 @@
 import React from "react";
 
 export default function Login(props){
+    const styles = {
+        backgroundImage: `linear-gradient(rgb(244, 237, 246), rgba(190, 134, 205, 0.653)), url(${props.backgroundImageLink})`,
+        backgroundSize: "cover",
+    }
     return (
-        <div className={props.className}>
+        <div className={props.className} style={styles}>
             {/* Login */}
             <div className="navbar">
                 <div className="hamburger" onClick={props.onClick}>

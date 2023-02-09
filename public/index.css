@@ -17,10 +17,13 @@ body{
     justify-content: center;
     align-items: center;
     background-color: rgb(246, 238, 249);
+    /* background-image: "https://www.gettyimages.com/detail/photo/african-megacity-lagos-nigeria-royalty-free-image/1320231994"; */
     position: fixed;
     width: 100%;
     height: 100%;
     overflow: hidden;
+    background-size: cover;
+    /* background-image: linear-gradient(rgb(244, 237, 246), rgba(190, 134, 205, 0.653)),  url("https://source.unsplash.com/1600x900/?city,lagos"); */
 }
 
 .weather, .preloadermin, .login, .gettingstarted, .customer-care{

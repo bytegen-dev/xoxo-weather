@@ -184,7 +184,7 @@ export default function App(){
         )
         
         const [searchWeatherData, setSearchWeatherData] = React.useState(
-        {
+            {
             cityAvailable: true,
             cityDefault: false,
             cityName : "",
@@ -200,6 +200,17 @@ export default function App(){
         )
         
     
+        const [backgroundImage, setBackgroundImage] = React.useState({
+            // link: `https://api.unsplash.com/photos/random?query=${localStorage.getItem("defaultCity")}&client_id=SZpCTwjHoLGW-SYW9MR0Jr3ITClDIafoYXgJo6YvRCM`,
+            link: `https://source.unsplash.com/1600x900/?city,${localStorage.getItem("defaultCity")}`,
+            alt: "backgroundimg",
+            // link: `https://cors-anywhere.herokuapp.com/https://api.unsplash.com/photos/random?query=${localStorage.getItem("defaultCity")}&client_id=SZpCTwjHoLGW-SYW9MR0Jr3ITClDIafoYXgJo6YvRCM`
+        })
+
+        function newBgImg(){
+            const bgImage = `url("https://source.unsplash.com/1600x900/?city,${localStorage.getItem("defaultCity")}")`;
+            document.querySelector(".type-big").getElementsByClassName.backgroundImage = bgImage
+        }
 
 // wwt.main.humidity, wwt.wind.speed, wwt.main.temp, wwt.weather
 
@@ -221,7 +232,19 @@ export default function App(){
                         })
                     }
                     
+                    )
+                    
+                    setBackgroundImage(
+                        function(prevState){
+                            return({
+                        link: `https://source.unsplash.com/1600x900/?city,${localStorage.getItem("defaultCity")}`,
+
+                    })
+                }
             )
+
+            newBgImg()
+
             setSearchWeatherData(
                 function(prevState){
                     return(
@@ -337,6 +360,9 @@ export default function App(){
         // console.log(searchWeatherData.cityName)
     }
 
+    // const backgroundImage = `https://api.unsplash.com/photos/random?query=${city}&client_id=YOUR_UNSPLASH_API_KEY`;
+
+
 
     async function clearDataAll(){
         await localStorage.removeItem("visitedBefore")
@@ -402,7 +428,7 @@ export default function App(){
             const date = dateInfo.getDate()
             let month = dateInfo.getMonth()
             const year = dateInfo.getFullYear()
-
+            
             if(day === 0){
                 day = "Sunday"
             } else if(day === 1){
@@ -476,7 +502,7 @@ export default function App(){
             function(prevState){
                 return(
                     {...prevState, visible : true, saveText : "Save"}
-                )
+                    )
             }
         )
     }
@@ -642,21 +668,36 @@ export default function App(){
             // window.addEventListener("loadstart", gettingPageInfo)
         }, []
     )
+
+    // React.useEffect(
+    //     function(){
+    //         // const city = "new york";
+    //         const bgImage = `url("https://source.unsplash.com/1600x900/?city,${localStorage.getItem("defaultCity")}")`;
+    //         document.querySelector(".type-big").style.backgroundImage = `linear-gradient(rgb(244, 237, 246), rgba(190, 134, 205, 0.653)), ${bgImage}`
+    //         console.log("done")
+    //     }, []
+    // )
+
     return(
         <div className={uiSettings.showMenu? "container show-menu" : "container"}>
             <Preloader className = {uiSettings.showPreloader ? "show preloader type-big" : "preloader type-big yeah"}/>
             
-            <Menu className = "menu" onClick = {hamburgerClicked} onClickX = {hamburgerClickedX} onClear = {clearDataAll} onNext = {contextMenu}/>
+            <Menu className = "menu" onClick = {hamburgerClicked} onClickX = {hamburgerClickedX} onClear = {clearDataAll} onNext = {contextMenu} backgroundImageLink={backgroundImage.link}
+            backgroundImageAlt={backgroundImage.alt}/>
 
-            <GettingStarted className = {uiSettings.showGetStarted ? "show gettingstarted type-big" : "gettingstarted type-big"} onClick = {hamburgerClicked} onNext = {goToSignUp} />
+            <GettingStarted className = {uiSettings.showGetStarted ? "show gettingstarted type-big" : "gettingstarted type-big"} onClick = {hamburgerClicked} onNext = {goToSignUp} backgroundImageLink={backgroundImage.link}
+            backgroundImageAlt={backgroundImage.alt}/>
             
-            <Signup className = {uiSettings.showSignUp ? "show signup type-big" : "signup type-big"} onClick = {hamburgerClicked} onNext = {goToLogin} onPrev = {returnGetStarted}/>
+            <Signup className = {uiSettings.showSignUp ? "show signup type-big" : "signup type-big"} onClick = {hamburgerClicked} onNext = {goToLogin} onPrev = {returnGetStarted}backgroundImageLink={backgroundImage.link}
+            backgroundImageAlt={backgroundImage.alt}/>
             
             <PreloaderMin className = "preloadermin type-big" onClick = {hamburgerClicked} />
             
-            <CustomerCare className = "customer-care type-big" onClick = {hamburgerClicked} />
+            <CustomerCare className = "customer-care type-big" onClick = {hamburgerClicked} backgroundImageLink={backgroundImage.link}
+            backgroundImageAlt={backgroundImage.alt}/>
             
-            <Login  className = {uiSettings.showLogin ? "show login type-big" : "login type-big"} onClick = {hamburgerClicked} onNext = {goToWeather}/>
+            <Login  className = {uiSettings.showLogin ? "show login type-big" : "login type-big"} onClick = {hamburgerClicked} onNext = {goToWeather}backgroundImageLink={backgroundImage.link}
+            backgroundImageAlt={backgroundImage.alt}/>
             
             <Weather
             timehr={todayDate.hour}
@@ -665,10 +706,12 @@ export default function App(){
             date={todayDate.date}
             month={todayDate.month}
             year={todayDate.year}
+            
+            
 
 
-
-
+            backgroundImageLink={backgroundImage.link}
+            backgroundImageAlt={backgroundImage.alt}
 
             cityImg={wwt.weather[0].icon}
             cityName={weatherData.cityName}
