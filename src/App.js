@@ -80,7 +80,7 @@ export default function App(){
 
             const fetchData = async () =>{
                 const apiKey = "7fdcfe0794387359bd6a79824cbca277"
-                const city = "lagos"
+                const city = localStorage.getItem("defaultCity")
                 const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
                 const response = await fetch(apiUrl);
                 const data = await response.json();
@@ -171,7 +171,7 @@ export default function App(){
         {
             cityAvailable: true,
             cityDefault: true,
-            cityName : defaultCityData.cityName,
+            cityName : localStorage.getItem("defaultCity"),
             cityTemp : "45",
             cityWindSpeed : "3.6",
             cityLongitude : "1200",
@@ -340,6 +340,7 @@ export default function App(){
 
     async function clearDataAll(){
         await localStorage.removeItem("visitedBefore")
+        await localStorage.setItem("defaultCity", "lagos")
         // window.location.search
         // new URLSearchParams(window.location.search).delete()
 
