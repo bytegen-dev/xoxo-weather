@@ -1861,5 +1861,28 @@ body{
 
 ::-webkit-scrollbar{
     height: 0px;
+    width: 6px;
+}
+
+.login, .gettingstarted, .signup{
+    display: none;
+}
+
+::-webkit-scrollbar-button{
     width: 0px;
+    height: 10px;
+}
+    
+::-webkit-scrollbar-track{
+    background-color: rgba(249, 247, 250, 0.434);
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb{
+    border-radius: 20px;
+    background-color: rgba(65, 39, 80, 0.284);
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background-color: rgba(65, 39, 80, 0.7);
 }
