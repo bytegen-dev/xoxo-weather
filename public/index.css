@@ -367,6 +367,7 @@ body{
     /* transform: translateX(-100%); */
     visibility: hidden;
     transition: all 0.5s ease;
+    background-image: linear-gradient(rgba(243, 229, 243, 0.435),rgb(187, 148, 189)), url(xoweather.png) !important;
 }
 
 .show.gettingstarted{
