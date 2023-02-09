@@ -218,13 +218,7 @@ export default function App(){
         
         if(searchWeatherData.cityDefault === false){
             localStorage.setItem("defaultCity", weatherData.cityName)
-            setWWt(
-                function(){
-                    return ({
-                        ...ppt
-                    })
-                }
-                )
+            setWWt(ppt.data)
                 setWeatherData(
                     function(){
                         return ({
