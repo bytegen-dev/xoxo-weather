@@ -168,7 +168,7 @@ body{
 
 .menu-links-holder .link.search{
     font-size: 18px;
-    display: flex;
+    display: none;
     flex-direction: row-reverse;
     justify-content: space-between;
     align-items: center;
