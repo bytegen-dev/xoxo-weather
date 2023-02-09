@@ -84,7 +84,12 @@ export default function App(){
                 const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
                 const response = await fetch(apiUrl);
                 const data = await response.json();
-                setWWt(data);
+                setWWt(function(prevState){
+                    return({
+                        ...prevState,
+                        data
+                    })
+                });
                 console.log(data)
             }
 
