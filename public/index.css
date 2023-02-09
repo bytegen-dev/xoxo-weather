@@ -119,6 +119,7 @@ body{
     align-items: center;
     gap: 30px;
     font-size: 20px;
+    position: relative;
 }
 
 .site-info button{
@@ -133,7 +134,10 @@ body{
     justify-content: center;
     align-items: center;
     transition: all 0.5s ease;
+    position: absolute;
+    transform: translateY(50px);
 }
+
 .my-links{
     opacity: 0;
     visibility: hidden;
@@ -144,6 +148,11 @@ body{
 .site-info:hover .my-links{
     opacity: 1;
     visibility: visible;
+}
+
+.site-info:hover button{
+    opacity: 0;
+    visibility: hidden;
 }
 
 
