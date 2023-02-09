@@ -1482,7 +1482,7 @@ body{
     transform: translateY(0);
 }
 
-@media screen and (max-height: 800px) {
+@media screen and (max-height: 680px) {
     .searchpage .weather-details{
         max-height: 300px;
         overflow-y: scroll;
