@@ -81,7 +81,7 @@ export default function App(){
                         },
 
                         wind: {
-                            
+
                         }
                     }
                 }
@@ -104,7 +104,7 @@ export default function App(){
                         data: data
                     })
                 });
-                console.log(wwt)
+                // console.log(wwt)
             }
 
             fetchData()
