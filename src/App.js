@@ -63,17 +63,11 @@ export default function App(){
     }
     const [wwt, setWWt] = React.useState(
                 {
-                    weather: [
-                        ""
-                    ],
-
-                    main: {
-
-                    },
                     
                     data: {
                         weather: [
-                            ""
+                            "nan",
+                            "nan"
                         ],
     
                         main: {
@@ -139,7 +133,7 @@ export default function App(){
                 )
             }
             )
-        }
+    }
     
     function gotoSearch(){
         setUiSettings(
@@ -786,7 +780,7 @@ export default function App(){
             cityLatitude={weatherData.cityLatitude}
             cityLongitude={weatherData.cityLongitude}
             cityAvailable={weatherData.cityAvailable}
-            cityCondition={wwt.weather[0].description}
+            cityCondition={wwt.data.weather[0].description}
             cityDefault={weatherData.cityDefault}
             cityHumidity={wwt.data.main.humidity}
             className = {uiSettings.showWeather ? "show weather type-big" : "weather type-big"} onClick = {hamburgerClicked} onNext = {gotoSearch}/>
