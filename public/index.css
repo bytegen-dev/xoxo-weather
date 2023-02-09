@@ -1865,7 +1865,7 @@ body{
 }
 
 .login, .gettingstarted, .signup{
-    display: none;
+    /* display: none; */
 }
 
 ::-webkit-scrollbar-button{
