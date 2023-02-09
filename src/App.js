@@ -94,7 +94,8 @@ export default function App(){
                 const response = await fetch(apiUrl);
                 const data = await response.json();
                 if (data.cod === "404") {
-                    alert("invalid")
+                    alert("invalid Weather Info, please Reload page")
+                    localStorage.setItem("defaultCity", "Lagos")
                     return    
                 }
 
