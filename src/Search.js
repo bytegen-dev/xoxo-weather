@@ -18,8 +18,9 @@ export default function Search(props){
             </div>
                 <div className={props.invalidvisible ? "show cod" : "cod"}>
                     <h1>404</h1>
+                    {/* `https://api.whatsapp.com/send?phone=2347035658853&text=I%20searched%20for%20${props.cityName}%20but%20it%20brought%20a%20404%20error` */}
                 <h1>City not Found</h1>
-                <a href="https://wa.me/+2347035658853">make a complaint</a>
+                <a href={`https://api.whatsapp.com/send?phone=2347035658853&text=I%20searched%20for%20${props.cityName}%20but%20it%20brought%20a%20404%20error`}>make a complaint</a>
                 <button onClick={props.inValidCityHide} className="return">Back</button>
                 </div>
                 <div className={props.visible ? "show weather-details" : "weather-details"}>
