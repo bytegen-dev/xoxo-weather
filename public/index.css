@@ -854,7 +854,7 @@ body{
         transform: translateY(10px);
     }
     
-    .weather .weather-details .weather--condition .condition img{
+    .weather-details .weather--condition .condition img{
         width: 50px;
         display: flex;
         justify-content: center;

@@ -23,7 +23,7 @@ export default function Search(props){
                     <div className="temp">
                         {props.cityTemp}°<span>C</span>
                     </div>
-                    <div className="condition">{props.cityCondition} <img src="sunny.png" alt="sun"/></div>
+                    <div className="condition">{props.cityCondition} <img src= {`https://openweathermap.org/img/wn/${props.cityImg}@2x.png`} alt="sun"/></div>
                         {/* <div className="date">
                             <span>{props.day}</span><span>{props.month} {props.date} {props.year}</span>
                         </div> */}

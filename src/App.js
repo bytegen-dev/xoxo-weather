@@ -207,12 +207,20 @@ export default function App(){
         
         if(searchWeatherData.cityDefault === false){
             localStorage.setItem("defaultCity", weatherData.cityName)
-            setWeatherData(
+            setWWt(
                 function(){
                     return ({
-                        ...searchWeatherData, cityDefault : true
+                        ...ppt
                     })
                 }
+                )
+                setWeatherData(
+                    function(){
+                        return ({
+                            ...searchWeatherData, cityDefault : true
+                        })
+                    }
+                    
             )
             setSearchWeatherData(
                 function(prevState){
@@ -265,39 +273,50 @@ export default function App(){
     function searchforCity(event){
         event.preventDefault()
         
-        const apiKey = "7fdcfe0794387359bd6a79824cbca277"
-        const city = searchWeatherData.cityName
-        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+        // const apiKey = "7fdcfe0794387359bd6a79824cbca277"
+        // const city = searchWeatherData.cityName
+        // const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
 
-        fetch(apiUrl)
-        .then(res => res.json())
-        .then(data => setPpt(data))
+        // fetch(apiUrl)
+        // .then(res => res.json())
+        // .then(data => setPpt(data))
         // try{
             //     const res = await fetch(apiUrl)
         //     const data = await res.json()
         //     setWWt(data)
-        console.log(ppt)
+        // console.log(ppt)
 
+        const fetchData = async () =>{
+            const apiKey = "7fdcfe0794387359bd6a79824cbca277"
+            const city = searchWeatherData.cityName
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+            setPpt(data);
+            console.log(data)
+            setSearchWeatherData(
+                function(prevState){
+                    return (
+                        {
+                            ...prevState,
+                            cityAvailable: true,
+                            cityTemp : (parseInt(ppt.main.temp) - 273.15).toFixed(2),
+                            cityHumidity : ppt.main.humidity,
+                            cityWindSpeed : ppt.wind.speed,
+                            cityCondition: ppt.weather[0].description,
+                            cityImg: ppt.weather[0].icon,
+                            cityDefault: false,
+                            visible: true
+                        }
+                    )
+                }
+            )
+        }
+
+        fetchData()
 
 
         console.log("user searched")
-        setSearchWeatherData(
-            function(prevState){
-                return (
-                    {
-                        ...prevState,
-                        cityAvailable: true,
-                        cityTemp : (parseInt(ppt.main.temp) - 273.15).toFixed(2),
-                        cityHumidity : ppt.main.humidity,
-                        cityWindSpeed : ppt.wind.speed,
-                        cityCondition: ppt.weather[0].description,
-                        cityImg: ppt.weather[0].icon,
-                        cityDefault: false,
-                        visible: true
-                    }
-                )
-            }
-        )
     }
 
     function searchSaving(event){
@@ -313,13 +332,6 @@ export default function App(){
             }
         )
         
-        const apiKey = "7fdcfe0794387359bd6a79824cbca277"
-        const city = searchWeatherData.cityName
-        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
-
-        fetch(apiUrl)
-        .then(res => res.json())
-        .then(data => setPpt(data))
 
 
         // console.log(searchWeatherData.cityName)
@@ -659,7 +671,7 @@ export default function App(){
 
             cityImg={wwt.weather[0].icon}
             cityName={weatherData.cityName}
-            cityTemp={wwt.main.temp}
+            cityTemp={(parseInt(wwt.main.temp) - 273.15).toFixed(2)}
             cityWindSpeed={weatherData.cityWindSpeed}
             cityLatitude={weatherData.cityLatitude}
             cityLongitude={weatherData.cityLongitude}
@@ -672,14 +684,17 @@ export default function App(){
             <Search
             visible={searchWeatherData.visible}
             cityName={searchWeatherData.cityName}
-            cityTemp={searchWeatherData.cityTemp}
-            cityWindSpeed={searchWeatherData.cityWindSpeed}
+            cityImg={ppt.weather[0].icon}
+            // cityTemp={searchWeatherData.cityTemp}
+            cityTemp={(parseInt(ppt.main.temp) - 273.15).toFixed(2)}
+            cityWindSpeed={ppt.wind.speed}
             cityLatitude={searchWeatherData.cityLatitude}
             cityLongitude={searchWeatherData.cityLongitude}
             cityAvailable={searchWeatherData.cityAvailable}
-            cityCondition={searchWeatherData.cityCondition}
+            // cityCondition={searchWeatherData.cityCondition}
+            cityCondition={ppt.weather[0].description}
             cityDefault={searchWeatherData.cityDefault}
-            cityHumidity={searchWeatherData.cityHumidity}
+            cityHumidity={ppt.main.humidity}
             className = {uiSettings.showSearch ? "show searchpage type-big": "searchpage type-big"} onPrev = {returntoWeather} onSubmit = {searchforCity}  onChange = {searchSaving} setDefault={setDefault}/>
 
             <Settings className = {uxSettings.visible ? "show settings type-big" : "settings type-big"} onClick = {contextMenuX} saveText = {uxSettings.saveText} onSubmit = {contextMenuSubmit} onClear = {clearDataAll}/>
