@@ -96,7 +96,7 @@ export default function App(){
                         userMessage: userMessage.message,
                         visible: true,
                         // link: `Hello I am ${userMessage.name}, here is my message: ${userMessage.message}... You could contact me at ${userMessage.email} Here is my code for a zoom meeting ${randcode}`
-                        link: `https://api.whatsapp.com/send?phone=2347035658853&text=Hello%20I%20am%20${userMessage.name},%20here%20is%20my%20message:%20${userMessage.message}...%20You%20could%20contact%20me%20at%20${userMessage.email}%20Here%20is%20my%20code%20for%20a%20meeting%20${randcode}`
+                        link: `https://api.whatsapp.com/send?phone=2347035658853&text=Hello%20I%20am%20${userMessage.name}%20here%20is%20my%20message%20${userMessage.message}%20You%20could%20contact%20me%20at%20${userMessage.email}%20Here%20is%20my%20code%20for%20a%20meeting%20${randcode}`
                     })
                 }
             )
@@ -119,7 +119,7 @@ export default function App(){
                         visible: true,
                         // `https://api.whatsapp.com/send?phone=2347035658853&text=I%20searched%20for%20${props.cityName}%20but%20it%20brought%20a%20404%20error`
                         // link: `Hello I am ${userMessage.name}, here is my message: ${userMessage.message}... You could contact me at ${userMessage.email}`
-                        link: `https://api.whatsapp.com/send?phone=2347035658853&text=Hello%20I%20am%20${userMessage.name},%20here%20is%20my%20message:%20${userMessage.message}...%20You%20could%20contact%20me%20at%20${userMessage.email}`
+                        link: `https://api.whatsapp.com/send?phone=2347035658853&text=Hello%20I%20am%20${userMessage.name}%20here%20is%20my%20message%20${userMessage.message}%20You%20could%20contact%20me%20at%20${userMessage.email}`
                     })
                 }
             )
@@ -130,17 +130,25 @@ export default function App(){
     }
     
     function sendCustomerMessageX(){
-        setMessageSent(
-            function(prevState){
-                return({
-                    ...prevState,
-                    userMessage: userMessage.message,
-                    visible: false,
-                    link: ""
-                })
-            }
-        )
-
+        window.open(
+            messageSent.link,
+            "_blank"
+            );
+            setTimeout(
+                function(){
+                    setMessageSent(
+                        function(prevState){
+                            return({
+                                ...prevState,
+                                userMessage: userMessage.message,
+                                visible: false,
+                                link: ""
+                            })
+                        }
+                    )   
+            }, 1000
+            )
+            
             setTimeout(
                 function(){
                     setUserMessage(
@@ -156,23 +164,25 @@ export default function App(){
                         }
                     )
                 }, 2000
-            )
-            
-        }
-
-    function sendCustomerMessageXX(){
-        setMessageSent(
-            function(prevState){
-                return({
-                    ...prevState,
-                    userMessage: userMessage.message,
-                    visible: false,
-                    link: ""
-                })
+                )
+                
             }
-        )   
-        setUserMessage(
-            function(prevState){
+            
+            function sendCustomerMessageXX(){
+                // event.preventDefault()
+                // window.open(messageSent.link, "_blank")
+                setMessageSent(
+                    function(prevState){
+                        return({
+                            ...prevState,
+                            userMessage: userMessage.message,
+                            visible: false,
+                            link: ""
+                        })
+                    }
+                )
+                setUserMessage(
+                    function(prevState){
                 return({
                     ...prevState,
                     messageSending: false,

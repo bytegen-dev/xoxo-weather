@@ -40,7 +40,7 @@ export default function CustomerCare(props){
                     <div onClick={props.onSendXX} className="goback">Back</div>
                     <p>Your Message has been parsed and is ready to be sent</p>
                     <p>Click the button below to Send</p>
-                    <a onClick={props.onSendX} href={ props.linkToSend} rel="noreferrer" target="_blank">Send</a>
+                    <div className="sendwhatsapp" onClick={props.onSendX}>Send</div>
                 </div>
             </div>
             <div className="copyrt">© 2023 XoXo™ weather ⛅</div>

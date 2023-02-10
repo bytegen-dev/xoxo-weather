@@ -1407,7 +1407,7 @@ button{
     justify-content: center;
     align-items: center;
     /* border: 2px solid; */
-    width: 70vw;
+    width: 70%;
     max-width: 600px;
     max-height: 600px;
     min-width: 300px;
@@ -1985,7 +1985,7 @@ button{
     scale: 1;
 }
 
-.custom-care .okay .okay-container a{
+.custom-care .okay .okay-container .sendwhatsapp{
     width: 100px;
     height: 40px;
     display: flex;
@@ -2002,7 +2002,7 @@ button{
     /* font-weight: bold; */
 }
 
-.custom-care .okay .okay-container a:hover{
+.custom-care .okay .okay-container .sendwhatsapp:hover{
     background-color: #000;
 }
 
