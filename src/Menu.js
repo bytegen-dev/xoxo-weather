@@ -26,7 +26,7 @@ export default function Menu(props){
                     </div>
                 </div>
                 {/* <div className="link">Log Out</div> */}
-                <a target="_blank" rel="noreferrer" href="https://wa.me/+2347035658853" className="link customer-care"><i className="fa fa-comments"/></a>
+                <div onClick={props.onGotoCustomCare} className="link customer-care"><i className="fa fa-comments"/></div>
                 {/* <div className="link">Dark Mode</div> */}
                 <div className="link download-app" onClick={appInProduction}>
                     Download App

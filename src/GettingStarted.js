@@ -13,7 +13,7 @@ export default function GettingStarted(props){
                     <i className="fa fa-bars"/>
                     <i className="fa fa-close"/>
                 </div>
-                <div className="gotologin">Login</div>
+                <div className="gotologin">v 2.0.1</div>
             </div>
             <div className="content">
                 <h2>Welcome to</h2>

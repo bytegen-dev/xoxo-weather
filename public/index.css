@@ -11,6 +11,10 @@ body{
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0.05);
 }
 
+button{
+    cursor: pointer;
+}
+
 .type-big{
     /* opacity: 0 !important; */
     display: flex;
@@ -219,7 +223,8 @@ body{
 
 .customer-care:hover{
     scale: 1.5;
-    background-color: transparent;
+    opacity: 0.2 !important;
+    /* background-color: transparent; */
 }
 
 .menu-links-holder .link.active{
@@ -421,7 +426,10 @@ body{
     transition: all 0.5s ease;
     cursor: pointer;
     padding: 0 10px;
-    cursor: pointer;
+    font-size: 15px;
+    cursor: default;
+    /* cursor: pointer; */
+    /* display: none; */
 }
 
 .gettingstarted .gotosignup{
@@ -824,13 +832,6 @@ body{
     .preloader{
         /* display: none; */
     }
-    
-    .weather{
-        opacity: 1;
-        visibility: visible;
-        /* background-image: url(./sunny.png); */
-        /* background-size: cover; */
-    }
 
     .login, .signup, .gettingstarted{
         /* display: none; */
@@ -1064,6 +1065,11 @@ body{
 
         .weather .navbar{
             justify-content: center;
+        }
+
+        .weather{
+            opacity: 1;
+            visibility: visible;
         }
 
         .weather .weather-details{
@@ -1323,6 +1329,7 @@ body{
     /* height: 100%; */
     border: none;
     padding: 5px 10px;
+    height: 100%;
     width: 100%;
     outline: none;
 }
@@ -1888,3 +1895,295 @@ body{
     background-color: rgba(65, 39, 80, 0.7);
 }
 
+
+.preloader, .login, .signup, .gettingstarted, .weather, .search{
+    /* display: none; */
+}
+
+.custom-care{
+    background: rgb(22, 17, 25) !important;
+    color: #fff;
+    opacity: 0;
+    transition: all 0.5s ease;
+    visibility: hidden;
+    z-index: 10;
+    /* scale: 0.8; */
+    /* transform: translateX(100%); */
+}
+
+.show.custom-care{
+    /* transform: translateX(0); */
+    opacity: 1;
+    /* scale: 1; */
+    visibility: visible;
+}
+
+.custom-care .goback{
+    width: 100px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    height: 30px;
+    background-color: rgb(224, 71, 71);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px #0003;
+}
+
+.custom-care .goback:hover{
+    background-color: #000;
+}
+
+.custom-care .okay{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(13, 9, 14, 0.8);
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: all 0.5s ease;
+    visibility: hidden;
+    padding: 20px;
+}
+
+.custom-care .show.okay{
+    opacity: 1;
+    visibility: visible;
+}
+
+.custom-care .okay .okay-container{
+    width: 80%;
+    position: relative;
+    max-width: 500px;
+    max-height: 500px;
+    min-width: 300px;
+    min-height: 300px;
+    border-radius: 30px;
+    background-color: rgba(240, 232, 243, 0.8);
+    backdrop-filter: blur(7px);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    color: rgb(35, 24, 42);
+    gap: 10px;
+    transition: all 0.5s ease;
+    scale: 0;
+}
+
+.custom-care .show.okay .okay-container{
+    scale: 1;
+}
+
+.custom-care .okay .okay-container a{
+    width: 100px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(64, 35, 74);
+    color: #fff;
+    margin-top: 30px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.5s ease;
+    letter-spacing: 1px;
+    font-size: 600;
+    /* font-weight: bold; */
+}
+
+.custom-care .okay .okay-container a:hover{
+    background-color: #000;
+}
+
+
+
+.custom-care .message{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: 2px solid; */
+    width: 100%;
+    gap: 30px;
+}
+
+.custom-care .message h2{
+    position: relative;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* border: 2px solid; */
+    margin-bottom: 30px;
+}
+
+.custom-care .message h2::before{
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    height: 3px;
+    background-color: rgb(85, 75, 85);
+    opacity: 0;
+    width: 300px;
+    border-radius: 30px;
+    transition: all 1s ease;
+}
+
+.show.custom-care .message h2::before{
+    width: 50px;
+    opacity: 1;
+}
+
+.custom-care .message form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    /* color: rgb(41, 16, 56); */
+    /* padding: 20px; */
+}
+
+.custom-care .back, .custom-care .copyrt{
+    position: absolute;
+}
+
+.custom-care .back{
+    top: 20px;
+    left: 20px;
+    transition: all 0.5s ease;
+}
+
+.custom-care .back:hover{
+    opacity: 0.3;
+}
+
+.custom-care .copyrt{
+    bottom: 5vh;
+    opacity: 0.2;
+}
+
+.custom-care .message form > input{
+    border: 1px solid #eee5ed39;
+    outline: none;
+    padding: 10px;
+    width: 300px;
+    border-radius: 10px;
+    max-width: 80%;
+    transition: all 0.5s ease;
+    background-color: rgb(246, 238, 249);
+    background-color: transparent;
+    color: #fff;
+}
+
+.custom-care .message form div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 1px;
+}
+
+.custom-care .message form textarea{
+    /* opacity: 0.3; */
+    /* background-color: rgb(246, 238, 249); */
+    width: 300px;
+    max-width: 300px;
+    /* min-width: 300px; */
+    border-radius: 10px;
+    min-width: 300px;
+    border: none;
+    outline: none;
+    padding: 10px;
+    min-height: 100px;
+    max-height: 200px;
+    transition: all 0.5s ease;
+    background-color: transparent;
+    border: 1px solid #eee5ed39;
+    color: #fff;
+    /* width: 300px; */
+}
+
+.custom-care .message form textarea:hover, .custom-care .message form textarea:focus{
+    border-color: gold;
+    background-color: transparent;
+}
+
+.custom-care .message form > input:focus, .custom-care .message form > input:hover{
+    background-color: transparent;
+    border-color: gold;
+    /* background-color: rgb(246, 238, 249); */
+}
+
+.custom-care .message form .done{
+    margin-top: 30px;
+    padding: 10px 20px;
+    min-width: 200px;
+    background-color: rgb(244, 230, 249);
+    border: none;
+    /* border: 2px solid rgb(246, 238, 249); */
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 20px;
+    color: rgb(246, 238, 249);
+    color: rgb(28, 20, 31);
+    letter-spacing: 1px;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    opacity: 0.1;
+}
+
+.custom-care .message form .show.done{
+    opacity: 1;
+}
+
+
+
+@media screen and (min-width: 500px) {
+    .container{
+        width: 100%;
+        max-width: 400px;
+        height: 85%;
+        max-height: 750px;
+        min-height: 600px;
+        /* opacity: 0.3; */
+        /* scale: 0.8; */
+        /* background-color: red; */
+        position: fixed;
+        overflow: hidden;
+        border-radius: 40px;
+        /* top: 0;
+        left: 0; */
+        /* margin: 0 auto; */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0px 0px 30px #0008;
+        border: 10px solid #000;
+        background-color: #000;
+    }
+
+    body{
+        height: 100vh;
+        width: 100vw;
+        background-color: tomato;
+        background: linear-gradient(#382032, #000) !important;
+    }
+
+    .menu{
+        width: 70%;
+    }
+}
