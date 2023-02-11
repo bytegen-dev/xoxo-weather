@@ -967,6 +967,53 @@ export default function App(){
         }, []
     )
 
+    React.useEffect(
+        function(){
+            if(uiSettings.showMenu === false){
+                return;
+            }
+
+            const menuElement = document.querySelector(".menu")
+
+            let startX;
+            let currentX;
+            let difference;
+
+        const handleTouchStart = (e) => {
+            startX = e.touches[0].pageX;
+        };
+
+        const handleTouchMove = (e) => {
+            currentX = e.touches[0].pageX;
+        };
+
+        const handleTouchEnd = () => {
+            difference = startX - currentX;
+            if (difference > 0) {
+                setUiSettings(
+                    function(prevState){
+                        return({
+                            ...prevState, showMenu : false
+                        })
+                    }
+                );
+            }
+        };
+
+        menuElement.addEventListener("touchstart", handleTouchStart);
+        menuElement.addEventListener("touchmove", handleTouchMove);
+        menuElement.addEventListener("touchend", handleTouchEnd);
+
+        return () => {
+            menuElement.removeEventListener("touchstart", handleTouchStart);
+            menuElement.removeEventListener("touchmove", handleTouchMove);
+            menuElement.removeEventListener("touchend", handleTouchEnd);
+        };
+  }, [uiSettings]);
+        
+
+
+
     // React.useEffect(
     //     function(){
     //         // const city = "new york";
@@ -980,9 +1027,16 @@ export default function App(){
         <div className={uiSettings.showMenu? "container show-menu" : "container"}>
             <Preloader className = {uiSettings.showPreloader ? "show preloader type-big" : "preloader type-big yeah"}/>
             
-            <Menu className = "menu" onClick = {hamburgerClicked} onClickX = {hamburgerClickedX} onClear = {clearDataAll} onNext = {contextMenu} backgroundImageLink={backgroundImage.link}
-            backgroundImageAlt={backgroundImage.alt} onGotoLogin={goToLogin} onGotoSignUp={goToSignUp}
-            onGotoCustomCare={gotoCustomCare} onGotoGetStarted={gotoGetStarted}/>
+            <Menu className = "menu"
+            onClick = {hamburgerClicked}
+            onClickX = {hamburgerClickedX}
+            onClear = {clearDataAll}
+            onNext = {contextMenu}
+            backgroundImageLink={backgroundImage.link}
+            backgroundImageAlt={backgroundImage.alt}
+            onGotoLogin={goToLogin} onGotoSignUp={goToSignUp}
+            onGotoCustomCare={gotoCustomCare}
+            onGotoGetStarted={gotoGetStarted}/>
 
             <GettingStarted className = {uiSettings.showGetStarted ? "show gettingstarted type-big" : "gettingstarted type-big"} onClick = {hamburgerClicked} onNext = {goToSignUp} backgroundImageLink={backgroundImage.link}
             backgroundImageAlt={backgroundImage.alt}/>

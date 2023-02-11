@@ -9,7 +9,7 @@ export default function Menu(props){
 
 
     return (
-        <div className={props.className}>
+        <div className={props.className} id={props.className}>
             {
                 
                 <div className="menu-links-holder">
