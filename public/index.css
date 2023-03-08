@@ -94,12 +94,12 @@ button{
     background-color: rgb(28, 20, 31);
     color: rgb(60, 40, 72);
     color: #fff;
-    transform: translateX(-100%);
+    transform: translateX(-130%);
     transition: all 0.5s ease;
     /* box-shadow: 0px 0px 10px #0007; */
     /* opacity: 0; */
     /* transform: translateX(0); */
-}z
+}
 
 .preloader{
     /* display: none; */
@@ -2155,32 +2155,27 @@ button{
 @media screen and (min-width: 500px) {
     .container{
         width: 100%;
-        max-width: 400px;
-        height: 85%;
-        max-height: 750px;
-        min-height: 600px;
-        /* opacity: 0.3; */
-        /* scale: 0.8; */
-        /* background-color: red; */
+        max-width: 500px;
+        height: 90vh;
+        max-height: 1000px;
+        min-height: 800px;
         position: fixed;
         overflow: hidden;
         border-radius: 40px;
-        /* top: 0;
-        left: 0; */
-        /* margin: 0 auto; */
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        box-shadow: 0px 0px 30px #0008;
-        border: 10px solid #000;
-        background-color: #000;
+        box-shadow: 7px 7px 10px rgba(41, 0, 44, 0.194);
+        background-color: transparent;
     }
+
+
 
     body{
         height: 100vh;
         width: 100vw;
-        background-color: tomato;
-        background: linear-gradient(#382032, #000) !important;
+        background-color: #fff;
+        background: linear-gradient(#fbe2f58e, #38002dc8) !important;
     }
 
     .menu{
